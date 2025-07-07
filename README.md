@@ -31,7 +31,7 @@ Como este é um projeto estático, não há necessidade de um processo de build 
 
 Clone o repositório:
 
-git clone https://github.com/Thiago9220/SEU-REPOSITORIO.git
+git clone (https://github.com/Thiago9220/Portf-lio)
 
 Navegue até a pasta do projeto:
 
