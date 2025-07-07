@@ -3,20 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>Thiago Ramos - Desenvolvedor de Software</title>
     
-    <!-- Favicon (substitua pelo seu) -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👨‍💻</text></svg>">
+    <meta name="description" content="Portfólio de Thiago Ramos, desenvolvedor de software com foco em Machine Learning, Python, FastAPI e desenvolvimento web.">
+    <meta name="keywords" content="Thiago Ramos, Desenvolvedor de Software, Machine Learning, Python, FastAPI, React, Desenvolvimento Web, Portfólio">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Thiago Ramos - Desenvolvedor de Software">
+    <meta property="og:description" content="Especializado em transformar conceitos complexos em aplicações web intuitivas e de alta performance.">
+    <meta property="og:image" content="assets/perfil.png"> <meta property="og:url" content="https://seusite.com"> <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👨‍💻</text></svg>">
 
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Fonts (Inter) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Lucide Icons CDN -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
@@ -33,18 +36,6 @@
                               radial-gradient(at 33% 50%, hsla(222, 67%, 73%, 0.1) 0px, transparent 50%), 
                               radial-gradient(at 79% 53%, hsla(343, 68%, 79%, 0.1) 0px, transparent 50%);
         }
-        .spinner {
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top: 4px solid #3498db;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
         /* Animações de Scroll */
         .reveal {
             opacity: 0;
@@ -59,7 +50,6 @@
 </head>
 <body class="bg-gray-900 text-gray-200 gradient-bg">
 
-    <!-- CABEÇALHO E NAVEGAÇÃO -->
     <header class="bg-black/30 backdrop-blur-sm fixed top-0 left-0 right-0 z-50">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="text-2xl font-bold text-white hover:text-cyan-400 transition-colors">Thiago Ramos</a>
@@ -68,62 +58,61 @@
                 <a href="#experiencia" class="text-gray-300 hover:text-cyan-400 transition-colors">Formação</a>
                 <a href="#habilidades" class="text-gray-300 hover:text-cyan-400 transition-colors">Habilidades</a>
                 <a href="#projetos" class="text-gray-300 hover:text-cyan-400 transition-colors">Projetos</a>
+                <a href="#artigos" class="text-gray-300 hover:text-cyan-400 transition-colors">Artigos</a>
                 <a href="#contato" class="text-gray-300 hover:text-cyan-400 transition-colors">Contato</a>
             </nav>
-            <button id="mobile-menu-button" class="md:hidden">
+            <button id="mobile-menu-button" class="md:hidden" aria-label="Abrir menu de navegação">
                 <i data-lucide="menu" class="w-6 h-6"></i>
             </button>
         </div>
         <div id="mobile-menu" class="hidden md:hidden bg-gray-900">
-            <a href="#sobre" class="block py-2 px-6 text-gray-300 hover:bg-gray-800">Sobre</a>
-            <a href="#experiencia" class="block py-2 px-6 text-gray-300 hover:bg-gray-800">Formação</a>
-            <a href="#habilidades" class="block py-2 px-6 text-gray-300 hover:bg-gray-800">Habilidades</a>
-            <a href="#projetos" class="block py-2 px-6 text-gray-300 hover:bg-gray-800">Projetos</a>
-            <a href="#contato" class="block py-2 px-6 text-gray-300 hover:bg-gray-800">Contato</a>
+            <a href="#sobre" class="block py-2 px-6 text-gray-300 hover:bg-gray-800" aria-label="Ir para a seção Sobre">Sobre</a>
+            <a href="#experiencia" class="block py-2 px-6 text-gray-300 hover:bg-gray-800" aria-label="Ir para a seção Formação">Formação</a>
+            <a href="#habilidades" class="block py-2 px-6 text-gray-300 hover:bg-gray-800" aria-label="Ir para a seção Habilidades">Habilidades</a>
+            <a href="#projetos" class="block py-2 px-6 text-gray-300 hover:bg-gray-800" aria-label="Ir para a seção Projetos">Projetos</a>
+            <a href="#artigos" class="block py-2 px-6 text-gray-300 hover:bg-gray-800" aria-label="Ir para a seção Artigos">Artigos</a>
+            <a href="#contato" class="block py-2 px-6 text-gray-300 hover:bg-gray-800" aria-label="Ir para a seção Contato">Contato</a>
         </div>
     </header>
 
     <main class="container mx-auto px-6">
 
-        <!-- SEÇÃO HERO -->
         <section id="hero" class="min-h-screen flex flex-col justify-center items-center text-center">
             <img src="assets/perfil.png" alt="Foto de perfil de Thiago Ramos" class="w-32 h-32 rounded-full mb-6 border-4 border-cyan-400/50 object-cover">
             <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-3">Olá, eu sou Thiago Ramos</h1>
             <p class="text-xl md:text-2xl text-cyan-400 font-semibold mb-6">Desenvolvedor de Software com foco em Machine Learning</p>
             <p class="max-w-3xl text-gray-400 mb-8">
-                Especializado em transformar conceitos complexos em aplicações web intuitivas e performáticas, com foco em código limpo e design centrado no utilizador.
+                Especializado em transformar conceitos complexos em aplicações web intuitivas e de alta performance, com foco em código limpo e design centrado no usuário.
             </p>
             <div class="flex space-x-4">
-                <a href="#contato" class="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-6 rounded-lg transition-transform transform hover:scale-105">Entre em Contato</a>
-                <a href="#projetos" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition-transform transform hover:scale-105">Meus Projetos</a>
+                <a href="#contato" class="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-6 rounded-lg transition-transform transform hover:scale-105" aria-label="Ir para a seção de contato">Entre em Contato</a>
+                <a href="#projetos" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition-transform transform hover:scale-105" aria-label="Ver meus projetos">Meus Projetos</a>
             </div>
         </section>
 
-        <!-- SEÇÃO SOBRE MIM -->
         <section id="sobre" class="py-20 md:py-32 reveal">
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-white">Sobre Mim</h2>
             <div class="flex flex-col md:flex-row items-center gap-12">
                 <div class="md:w-1/3">
-                    <img src="assets/perfil.png" alt="Imagem profissional de Thiago Ramos" class="rounded-lg shadow-2xl w-full">
+                    <img src="assets/perfil.png" alt="Imagem profissional de Thiago Ramos em um ambiente de escritório" class="rounded-lg shadow-2xl w-full">
                 </div>
                 <div class="md:w-2/3">
-                    <textarea id="bio-textarea" rows="8" class="w-full bg-gray-900/50 border border-gray-700 rounded-md px-3 py-2 text-gray-300 text-lg focus:outline-none focus:ring-2 focus:ring-cyan-500">Com uma base sólida em Análise e Desenvolvimento de Sistemas, aprofundei os meus conhecimentos com uma pós-graduação em Segurança da Informação e atualmente estou a expandir as minhas competências em Ciência de Dados. Esta trajetória diversificada permite-me construir soluções robustas, seguras e inteligentes. Sou um profissional que valoriza a aprendizagem contínua e a aplicação prática da tecnologia para resolver problemas reais, sempre com um olhar atento à proteção de dados e à geração de insights valiosos.</textarea>
+                    <p id="bio-text" class="w-full text-gray-300 text-lg">
+                        Formado em Análise e Desenvolvimento de Sistemas, complementei minha formação com uma especialização em Segurança da Informação e, atualmente, estou me dedicando ao estudo de Ciência de Dados. Essa jornada multidisciplinar me capacita a desenvolver soluções tecnológicas eficientes, seguras e orientadas por dados. Sou comprometido com o aprendizado constante e com a aplicação de conhecimentos técnicos para resolver desafios reais, priorizando a proteção de informações e a extração de insights estratégicos.
+                    </p>
                     <div class="flex space-x-6 mt-6">
-                        <a href="https://github.com/Thiago9220" target="_blank" class="text-gray-400 hover:text-white transition-colors"><i data-lucide="github" class="w-8 h-8"></i></a>
-                        <a href="https://www.linkedin.com/in/thiago-ramos-8b6179185/" target="_blank" class="text-gray-400 hover:text-white transition-colors"><i data-lucide="linkedin" class="w-8 h-8"></i></a>
-                        <a href="mailto:Thiago.ramos356@gmail.com" class="text-gray-400 hover:text-white transition-colors"><i data-lucide="mail" class="w-8 h-8"></i></a>
+                        <a href="https://github.com/Thiago9220" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors" aria-label="Link para o perfil de Thiago Ramos no Github"><i data-lucide="github" class="w-8 h-8"></i></a>
+                        <a href="https://www.linkedin.com/in/thiago-ramos-8b6179185/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors" aria-label="Link para o perfil de Thiago Ramos no LinkedIn"><i data-lucide="linkedin" class="w-8 h-8"></i></a>
+                        <a href="mailto:Thiago.ramos356@gmail.com" class="text-gray-400 hover:text-white transition-colors" aria-label="Enviar um e-mail para Thiago Ramos"><i data-lucide="mail" class="w-8 h-8"></i></a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SEÇÃO EXPERIÊNCIA / FORMAÇÃO -->
         <section id="experiencia" class="py-20 md:py-32 reveal">
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-white">Minha Formação</h2>
             <div class="relative max-w-2xl mx-auto">
-                <!-- Linha da timeline -->
                 <div class="absolute left-1/2 w-0.5 h-full bg-gray-700 transform -translate-x-1/2"></div>
-                <!-- Item da Timeline 1 -->
                 <div class="relative mb-8">
                     <div class="absolute w-4 h-4 bg-cyan-500 rounded-full left-1/2 top-1 transform -translate-x-1/2 ring-4 ring-gray-900"></div>
                     <div class="bg-gray-800/50 rounded-lg p-6 w-full md:w-5/12 md:ml-auto md:mr-12">
@@ -133,7 +122,6 @@
                         <p class="text-gray-300 mt-2 text-sm">Aprofundamento em análise de dados, machine learning e visualização de informações.</p>
                     </div>
                 </div>
-                <!-- Item da Timeline 2 -->
                 <div class="relative mb-8">
                     <div class="absolute w-4 h-4 bg-cyan-500 rounded-full left-1/2 top-1 transform -translate-x-1/2 ring-4 ring-gray-900"></div>
                     <div class="bg-gray-800/50 rounded-lg p-6 w-full md:w-5/12 md:mr-auto md:ml-12">
@@ -143,7 +131,6 @@
                         <p class="text-gray-300 mt-2 text-sm">Especialização em proteção de sistemas, redes e dados contra ameaças digitais.</p>
                     </div>
                 </div>
-                <!-- Item da Timeline 3 -->
                 <div class="relative">
                     <div class="absolute w-4 h-4 bg-cyan-500 rounded-full left-1/2 top-1 transform -translate-x-1/2 ring-4 ring-gray-900"></div>
                     <div class="bg-gray-800/50 rounded-lg p-6 w-full md:w-5/12 md:ml-auto md:mr-12">
@@ -156,75 +143,70 @@
             </div>
         </section>
 
-        <!-- SEÇÃO HABILIDADES -->
         <section id="habilidades" class="py-20 md:py-32 reveal">
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-white">Minhas Habilidades</h2>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 text-center">
-                <div class="bg-gray-800/50 p-6 rounded-lg flex flex-col items-center justify-center hover:bg-gray-700/70 transition-colors shadow-lg"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" class="h-16 w-16 mb-4" /><h3 class="font-semibold text-lg text-white">JavaScript</h3></div>
-                <div class="bg-gray-800/50 p-6 rounded-lg flex flex-col items-center justify-center hover:bg-gray-700/70 transition-colors shadow-lg"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" class="h-16 w-16 mb-4" /><h3 class="font-semibold text-lg text-white">React</h3></div>
-                <div class="bg-gray-800/50 p-6 rounded-lg flex flex-col items-center justify-center hover:bg-gray-700/70 transition-colors shadow-lg"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" class="h-16 w-16 mb-4" /><h3 class="font-semibold text-lg text-white">Node.js</h3></div>
-                <div class="bg-gray-800/50 p-6 rounded-lg flex flex-col items-center justify-center hover:bg-gray-700/70 transition-colors shadow-lg"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" class="h-16 w-16 mb-4" /><h3 class="font-semibold text-lg text-white">Python</h3></div>
-                <div class="bg-gray-800/50 p-6 rounded-lg flex flex-col items-center justify-center hover:bg-gray-700/70 transition-colors shadow-lg"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" class="h-16 w-16 mb-4" /><h3 class="font-semibold text-lg text-white">Docker</h3></div>
-                <div class="bg-gray-800/50 p-6 rounded-lg flex flex-col items-center justify-center hover:bg-gray-700/70 transition-colors shadow-lg"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" class="h-16 w-16 mb-4" /><h3 class="font-semibold text-lg text-white">PostgreSQL</h3></div>
-                <div class="bg-gray-800/50 p-6 rounded-lg flex flex-col items-center justify-center hover:bg-gray-700/70 transition-colors shadow-lg"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg" class="h-16 w-16 mb-4" /><h3 class="font-semibold text-lg text-white">Tailwind CSS</h3></div>
-                <div class="bg-gray-800/50 p-6 rounded-lg flex flex-col items-center justify-center hover:bg-gray-700/70 transition-colors shadow-lg"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" class="h-16 w-16 mb-4" /><h3 class="font-semibold text-lg text-white">Git</h3></div>
+                <div class="bg-gray-800/50 p-6 rounded-lg flex flex-col items-center justify-center hover:bg-gray-700/70 transition-colors shadow-lg"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" class="h-16 w-16 mb-4" alt="Ícone do JavaScript"/><h3 class="font-semibold text-lg text-white">JavaScript</h3></div>
+                <div class="bg-gray-800/50 p-6 rounded-lg flex flex-col items-center justify-center hover:bg-gray-700/70 transition-colors shadow-lg"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" class="h-16 w-16 mb-4" alt="Ícone do React"/><h3 class="font-semibold text-lg text-white">React</h3></div>
+                <div class="bg-gray-800/50 p-6 rounded-lg flex flex-col items-center justify-center hover:bg-gray-700/70 transition-colors shadow-lg"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" class="h-16 w-16 mb-4" alt="Ícone do Node.js"/><h3 class="font-semibold text-lg text-white">Node.js</h3></div>
+                <div class="bg-gray-800/50 p-6 rounded-lg flex flex-col items-center justify-center hover:bg-gray-700/70 transition-colors shadow-lg"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" class="h-16 w-16 mb-4" alt="Ícone do Python"/><h3 class="font-semibold text-lg text-white">Python</h3></div>
+                <div class="bg-gray-800/50 p-6 rounded-lg flex flex-col items-center justify-center hover:bg-gray-700/70 transition-colors shadow-lg"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" class="h-16 w-16 mb-4" alt="Ícone do Docker"/><h3 class="font-semibold text-lg text-white">Docker</h3></div>
+                <div class="bg-gray-800/50 p-6 rounded-lg flex flex-col items-center justify-center hover:bg-gray-700/70 transition-colors shadow-lg"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" class="h-16 w-16 mb-4" alt="Ícone do PostgreSQL"/><h3 class="font-semibold text-lg text-white">PostgreSQL</h3></div>
+                <div class="bg-gray-800/50 p-6 rounded-lg flex flex-col items-center justify-center hover:bg-gray-700/70 transition-colors shadow-lg"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg" class="h-16 w-16 mb-4" alt="Ícone do Tailwind CSS"/><h3 class="font-semibold text-lg text-white">Tailwind CSS</h3></div>
+                <div class="bg-gray-800/50 p-6 rounded-lg flex flex-col items-center justify-center hover:bg-gray-700/70 transition-colors shadow-lg"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" class="h-16 w-16 mb-4" alt="Ícone do Git"/><h3 class="font-semibold text-lg text-white">Git</h3></div>
             </div>
         </section>
 
-        <!-- SEÇÃO PROJETOS -->
         <section id="projetos" class="py-20 md:py-32 reveal">
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-white">Projetos em Destaque</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 
-                <!-- Projeto 1: CNMP -->
                 <div class="bg-gray-800/50 rounded-lg overflow-hidden shadow-lg group flex flex-col">
-                    <img src="https://placehold.co/600x400/111827/34d399?text=Projeto+CNMP" alt="Imagem do Projeto do CNMP" class="w-full h-48 object-cover group-hover:scale-105 transition-transform">
+                    <img src="https://placehold.co/600x400/111827/34d399?text=Projeto+CNMP" alt="Interface do sistema de Gestão de Metas para o CNMP" class="w-full h-48 object-cover group-hover:scale-105 transition-transform">
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="project-title text-xl font-bold text-white mb-2">Gestão de Metas e Indicadores - CNMP</h3>
-                        <textarea class="project-description w-full bg-transparent text-gray-400 mb-4 flex-grow resize-none border-0 p-0 focus:ring-0">Desenvolvi um sistema interno para o Conselho Nacional do Ministério Público, permitindo o registo e acompanhamento de metas e indicadores. A plataforma facilita a gestão de dados de performance, com perfis distintos para inserção (utilizadores) e administração (gestores).</textarea>
+                        <p class="project-description w-full bg-transparent text-gray-400 mb-4 flex-grow">Desenvolvi um sistema interno para o Conselho Nacional do Ministério Público, permitindo o registo e acompanhamento de metas e indicadores. A plataforma facilita a gestão de dados de performance, com perfis distintos para inserção (utilizadores) e administração (gestores).</p>
                         <div class="project-techs flex flex-wrap gap-2 mb-4">
                             <span class="bg-yellow-900/50 text-yellow-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Python</span>
                             <span class="bg-gray-700/50 text-gray-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">FastAPI</span>
                             <span class="bg-cyan-900/50 text-cyan-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">React</span>
                             <span class="bg-yellow-900/50 text-yellow-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">JavaScript</span>
                         </div>
-                        <div class="flex space-x-4 mt-4">
-                            <a href="https://github.com/Thiago9220/cnmp-web-frontend/tree/main/Projeto-CNMP-FrontEnd-main-main-main" target="_blank" class="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors"><i data-lucide="github" class="w-5 h-5 mr-2"></i> Código</a>
-                            <a href="#" target="_blank" class="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors"><i data-lucide="external-link" class="w-5 h-5 mr-2"></i> Demo</a>
+                        <div class="flex space-x-4 mt-auto pt-4">
+                            <a href="https://github.com/Thiago9220/cnmp-web-frontend/tree/main/Projeto-CNMP-FrontEnd-main-main-main" target="_blank" rel="noopener noreferrer" class="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors" aria-label="Ver o código do projeto CNMP no Github"><i data-lucide="github" class="w-5 h-5 mr-2"></i> Código</a>
+                            <a href="#" target="_blank" rel="noopener noreferrer" class="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors" aria-label="Ver a demonstração ao vivo do projeto CNMP"><i data-lucide="external-link" class="w-5 h-5 mr-2"></i> Demo</a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Projeto 2 (Exemplo) -->
                 <div class="bg-gray-800/50 rounded-lg overflow-hidden shadow-lg group flex flex-col">
-                    <img src="https://placehold.co/600x400/111827/f472b6?text=Projeto+2" alt="Imagem do Projeto 2" class="w-full h-48 object-cover group-hover:scale-105 transition-transform">
+                    <img src="https://placehold.co/600x400/111827/f472b6?text=Projeto+2" alt="Imagem placeholder para o Projeto 2" class="w-full h-48 object-cover group-hover:scale-105 transition-transform">
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="project-title text-xl font-bold text-white mb-2">Nome do Projeto 2</h3>
-                        <textarea class="project-description w-full bg-transparent text-gray-400 mb-4 flex-grow resize-none border-0 p-0 focus:ring-0">Uma breve descrição do projeto, o problema que ele resolve e seu objetivo principal.</textarea>
+                        <p class="project-description w-full bg-transparent text-gray-400 mb-4 flex-grow">Uma breve descrição do projeto, o problema que ele resolve e seu objetivo principal.</p>
                         <div class="project-techs flex flex-wrap gap-2 mb-4">
                            <span class="bg-blue-900/50 text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Tecnologia A</span>
                            <span class="bg-red-900/50 text-red-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Tecnologia B</span>
                         </div>
-                        <div class="flex space-x-4 mt-4">
-                            <a href="#" target="_blank" class="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors"><i data-lucide="github" class="w-5 h-5 mr-2"></i> Código</a>
-                            <a href="#" target="_blank" class="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors"><i data-lucide="external-link" class="w-5 h-5 mr-2"></i> Demo</a>
+                        <div class="flex space-x-4 mt-auto pt-4">
+                            <a href="#" target="_blank" rel="noopener noreferrer" class="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors" aria-label="Ver o código do Projeto 2 no Github"><i data-lucide="github" class="w-5 h-5 mr-2"></i> Código</a>
+                            <a href="#" target="_blank" rel="noopener noreferrer" class="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors" aria-label="Ver a demonstração ao vivo do Projeto 2"><i data-lucide="external-link" class="w-5 h-5 mr-2"></i> Demo</a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Projeto 3 (Exemplo) -->
                 <div class="bg-gray-800/50 rounded-lg overflow-hidden shadow-lg group flex flex-col">
-                    <img src="https://placehold.co/600x400/111827/818cf8?text=Projeto+3" alt="Imagem do Projeto 3" class="w-full h-48 object-cover group-hover:scale-105 transition-transform">
+                    <img src="https://placehold.co/600x400/111827/818cf8?text=Projeto+3" alt="Imagem placeholder para o Projeto 3" class="w-full h-48 object-cover group-hover:scale-105 transition-transform">
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="project-title text-xl font-bold text-white mb-2">Nome do Projeto 3</h3>
-                        <textarea class="project-description w-full bg-transparent text-gray-400 mb-4 flex-grow resize-none border-0 p-0 focus:ring-0">Uma breve descrição do projeto, o problema que ele resolve e seu objetivo principal.</textarea>
+                        <p class="project-description w-full bg-transparent text-gray-400 mb-4 flex-grow">Uma breve descrição do projeto, o problema que ele resolve e seu objetivo principal.</p>
                         <div class="project-techs flex flex-wrap gap-2 mb-4">
                            <span class="bg-green-900/50 text-green-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Tecnologia C</span>
                            <span class="bg-indigo-900/50 text-indigo-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Tecnologia D</span>
                         </div>
-                        <div class="flex space-x-4 mt-4">
-                            <a href="#" target="_blank" class="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors"><i data-lucide="github" class="w-5 h-5 mr-2"></i> Código</a>
-                            <a href="#" target="_blank" class="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors"><i data-lucide="external-link" class="w-5 h-5 mr-2"></i> Demo</a>
+                        <div class="flex space-x-4 mt-auto pt-4">
+                            <a href="#" target="_blank" rel="noopener noreferrer" class="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors" aria-label="Ver o código do Projeto 3 no Github"><i data-lucide="github" class="w-5 h-5 mr-2"></i> Código</a>
+                            <a href="#" target="_blank" rel="noopener noreferrer" class="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors" aria-label="Ver a demonstração ao vivo do Projeto 3"><i data-lucide="external-link" class="w-5 h-5 mr-2"></i> Demo</a>
                         </div>
                     </div>
                 </div>
@@ -232,15 +214,68 @@
             </div>
         </section>
 
-        <!-- SEÇÃO CONTATO -->
+        <section id="artigos" class="py-20 md:py-32 reveal">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 text-white">Artigos & Publicações</h2>
+            <p class="text-center text-gray-400 mb-12 max-w-2xl mx-auto">
+                Aqui compartilho insights, tutoriais e reflexões sobre tecnologia, desenvolvimento de software e machine learning.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <div class="bg-gray-800/50 rounded-lg overflow-hidden shadow-lg group flex flex-col">
+                    <img src="https://placehold.co/600x400/111827/10b981?text=Artigo+FastAPI" alt="Imagem de capa do artigo sobre FastAPI" class="w-full h-48 object-cover group-hover:scale-105 transition-transform">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-yellow-900/50 text-yellow-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Python</span>
+                            <span class="text-gray-500 text-sm flex items-center"><i data-lucide="calendar" class="inline w-4 h-4 mr-1.5"></i>07 Jul, 2025</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Os Fundamentos do FastAPI para Iniciantes</h3>
+                        <p class="text-gray-400 mb-4 flex-grow">Um guia completo para começar a construir APIs de alta performance com FastAPI, desde a instalação até os testes. </p>
+                        <a href="artigo-fastapi.html" class="flex items-center ...">
+                            Ler Artigo <i data-lucide="arrow-right" class="w-5 h-5 ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800/50 rounded-lg overflow-hidden shadow-lg group flex flex-col">
+                    <img src="https://placehold.co/600x400/111827/6366f1?text=Acessibilidade" alt="Imagem de capa do artigo sobre acessibilidade web" class="w-full h-48 object-cover group-hover:scale-105 transition-transform">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-indigo-900/50 text-indigo-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">Frontend</span>
+                            <span class="text-gray-500 text-sm flex items-center"><i data-lucide="calendar" class="inline w-4 h-4 mr-1.5"></i>07 Jul, 2025</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">5 Dicas de Acessibilidade que Todo Dev Deveria Saber</h3>
+                        <p class="text-gray-400 mb-4 flex-grow">Melhore a usabilidade dos seus sites para todos os usuários com estas dicas práticas de acessibilidade (a11y).</p>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors mt-auto font-semibold" aria-label="Ler o artigo completo sobre acessibilidade">
+                            Ler Artigo <i data-lucide="arrow-right" class="w-5 h-5 ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800/50 rounded-lg overflow-hidden shadow-lg group flex flex-col">
+                    <img src="https://placehold.co/600x400/111827/3b82f6?text=Docker" alt="Imagem de capa do artigo sobre Docker" class="w-full h-48 object-cover group-hover:scale-105 transition-transform">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-blue-900/50 text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">DevOps</span>
+                             <span class="text-gray-500 text-sm flex items-center"><i data-lucide="calendar" class="inline w-4 h-4 mr-1.5"></i>07 Jul, 2025</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Introdução ao Docker: Um Guia Prático</h3>
+                        <p class="text-gray-400 mb-4 flex-grow">Descomplique a conteinerização e aprenda como usar Docker para criar ambientes de desenvolvimento consistentes.</p>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors mt-auto font-semibold" aria-label="Ler o artigo completo sobre Docker">
+                            Ler Artigo <i data-lucide="arrow-right" class="w-5 h-5 ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
         <section id="contato" class="py-20 md:py-32 reveal">
             <div class="text-center max-w-3xl mx-auto">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">Vamos Conversar?</h2>
                 <p class="text-gray-400 mb-8 text-lg">
                     Estou sempre aberto a novas oportunidades, colaborações ou apenas um bom bate-papo sobre tecnologia. Envie uma mensagem e entrarei em contato em breve!
                 </p>
-                <!-- Formulário de Contato -->
-                <form action="https://formspree.io/f/SEU_CODIGO_AQUI" method="POST" class="max-w-xl mx-auto text-left">
+                
+                <form action="https://formspree.io/f/xjkrdnzr" method="POST" class="max-w-xl mx-auto text-left">
                     <div class="mb-4">
                         <label for="name" class="block text-gray-300 mb-2">Nome</label>
                         <input type="text" id="name" name="name" required class="w-full bg-gray-800/50 border border-gray-700 rounded-md px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500">
@@ -264,7 +299,6 @@
 
     </main>
 
-    <!-- RODAPÉ -->
     <footer class="bg-gray-900/50 border-t border-gray-800 mt-20">
         <div class="container mx-auto px-6 py-6 text-center text-gray-500">
             <p>&copy; 2025 Thiago Ramos. Todos os direitos reservados.</p>

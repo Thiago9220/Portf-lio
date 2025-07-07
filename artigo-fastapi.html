@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Os Fundamentos do FastAPI para Iniciantes - Thiago Ramos</title>
+    
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .gradient-bg {
+            background-color: #0a0a0a;
+            background-image: radial-gradient(at 27% 37%, hsla(215, 98%, 61%, 0.1) 0px, transparent 50%), 
+                              radial-gradient(at 97% 21%, hsla(125, 98%, 72%, 0.1) 0px, transparent 50%), 
+                              radial-gradient(at 52% 99%, hsla(355, 98%, 61%, 0.1) 0px, transparent 50%);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-300 gradient-bg">
+
+    <header class="py-6">
+        <div class="container mx-auto px-6 text-center">
+            <a href="index.html#artigos" class="text-cyan-400 hover:text-cyan-300 transition-colors font-semibold">
+                &larr; Voltar para todos os artigos
+            </a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+        <article class="max-w-3xl mx-auto">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-4">
+                Aula básica de FastAPI para Iniciantes
+            </h1>
+
+            <div class="text-gray-500 mb-8">
+                <span>Publicado por Thiago Ramos em 07 de Julho, 2025</span>
+            </div>
+
+            <img src="https://placehold.co/1200x600/111827/10b981?text=FastAPI" alt="Imagem de capa do artigo sobre FastAPI" class="w-full rounded-lg mb-8">
+
+            <div class="prose prose-invert prose-lg max-w-none 
+                        prose-headings:text-white prose-a:text-cyan-400 prose-strong:text-white
+                        prose-blockquote:border-l-cyan-500 prose-blockquote:text-gray-400">
+                
+                <p>
+                    FastAPI é um framework web moderno e de alta performance para a construção de APIs com Python 3.7+, baseado nos type hints padrão do Python. Se você está começando no mundo do desenvolvimento backend com Python, FastAPI é uma escolha fantástica.
+                </p>
+
+                <h2>Por que escolher FastAPI?</h2>
+                <ul>
+                    <li><strong>Rapidez:</strong> Performance comparável ao NodeJS e Go.</li>
+                    <li><strong>Fácil de usar:</strong> Sintaxe simples e intuitiva.</li>
+                    <li><strong>Menos Bugs:</strong> A validação de dados com Pydantic reduz drasticamente os erros.</li>
+                    <li><strong>Documentação Automática:</strong> Gera documentação interativa (Swagger UI) a partir do seu código.</li>
+                </ul>
+
+                <h2>Preparando o Ambiente</h2>
+                <p>
+                    Vamos mergulhar em um exemplo básico para sentir o poder do framework. Primeiro, certifique-se de ter o FastAPI e um servidor ASGI como o Uvicorn instalados. Se ainda não os tiver, abra seu terminal e execute:
+                </p>
+                
+                <pre><code class="language-bash">pip install fastapi "uvicorn[standard]"</code></pre>
+
+                <h2>Seu primeiro "Olá, Mundo"</h2>
+                <p>
+                    Crie um arquivo chamado <code>main.py</code> e adicione o seguinte código. Ele define um único endpoint na rota raiz (<code>/</code>) que retorna uma mensagem JSON.
+                </p>
+                <pre><code class="language-python">from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+def read_root():
+    return {"message": "Olá, Mundo!"}
+</code></pre>
+
+                <p>Para executar a aplicação, use o Uvicorn:</p>
+                <pre><code class="language-bash">uvicorn main:app --reload</code></pre>
+                <p>Abra seu navegador em <code>http://127.0.0.1:8000</code> e você verá a mágica acontecer!</p>
+                
+                <blockquote>
+                    Uma das características mais poderosas do FastAPI é a documentação automática. Acesse <code>/docs</code> no seu navegador para ver a interface do Swagger UI e interagir com sua API.
+                </blockquote>
+
+                <h2>Parâmetros de Rota e Validação</h2>
+                <p>Vamos expandir nossa API. O FastAPI usa as dicas de tipo (type hints) do Python para validar os dados de entrada.</p>
+                
+                <h3>Parâmetros de Caminho (Path Parameters)</h3>
+                <p>Você pode capturar valores diretamente da URL. Note como declaramos <code>item_id</code> como um <code>int</code>. Se você tentar passar um texto, o FastAPI retornará um erro de validação automaticamente.</p>
+                <pre><code class="language-python">@app.get("/items/{item_id}")
+def read_item(item_id: int):
+    return {"item_id": item_id}
+</code></pre>
+
+                <h3>Corpo da Requisição (Request Body) com Pydantic</h3>
+                <p>Para requisições <code>POST</code> ou <code>PUT</code>, você envia dados no corpo da requisição. O FastAPI usa a biblioteca Pydantic para definir o "shape" dos seus dados.</p>
+                <p>Primeiro, defina um modelo que herda de <code>BaseModel</code> do Pydantic.</p>
+
+                <pre><code class="language-python">from pydantic import BaseModel
+from typing import Optional
+
+class Item(BaseModel):
+    name: str
+    description: Optional[str] = None
+    price: float
+    tax: Optional[float] = None
+</code></pre>
+                
+                <p>Agora, use esse modelo em seu endpoint. O FastAPI fará todo o trabalho de ler o JSON, validar, converter os tipos e documentar.</p>
+                <pre><code class="language-python">@app.post("/items/")
+def create_item(item: Item):
+    item_dict = item.dict()
+    if item.tax:
+        price_with_tax = item.price + item.tax
+        item_dict.update({"price_with_tax": price_with_tax})
+    return item_dict
+</code></pre>
+
+                <h2>Testando sua API</h2>
+                <p>Desenvolver sem testes é como navegar sem mapa. O FastAPI torna os testes extremamente simples. Primeiro, instale o <code>pytest</code> e o <code>httpx</code>:</p>
+                <pre><code class="language-bash">pip install pytest httpx</code></pre>
+                <p>Crie um arquivo chamado <code>test_main.py</code>. O FastAPI fornece um <code>TestClient</code> que permite fazer requisições à sua API diretamente, sem precisar de um servidor em execução.</p>
+
+                <pre><code class="language-python">from fastapi.testclient import TestClient
+from .main import app
+
+client = TestClient(app)
+
+def test_read_root():
+    response = client.get("/")
+    assert response.status_code == 200
+    assert response.json() == {"message": "Olá, Mundo!"}
+
+def test_create_item():
+    response = client.post(
+        "/items/",
+        json={"name": "Caneta Azul", "price": 3.5, "tax": 0.5},
+    )
+    assert response.status_code == 200
+    assert response.json() == {
+        "name": "Caneta Azul",
+        "description": None,
+        "price": 3.5,
+        "tax": 0.5,
+        "price_with_tax": 4.0,
+    }
+
+def test_create_item_invalid_price():
+    # Testando o erro de validação
+    response = client.post(
+        "/items/",
+        json={"name": "Preço Inválido", "price": "caro"},
+    )
+    assert response.status_code == 422 # 422 Unprocessable Entity
+</code></pre>
+                <p>Para rodar os testes, simplesmente execute <code>pytest</code> no seu terminal.</p>
+
+                <p>Parabéns! Você passou pelos pilares do FastAPI: criação de rotas, validação de dados com Pydantic e testes automatizados. O ecossistema do FastAPI é vasto e poderoso, incluindo injeção de dependências, websockets, segurança com OAuth2 e muito mais. Este foi apenas o primeiro passo em uma jornada empolgante. Continue explorando e construindo!</p>
+
+            </div>
+        </article>
+    </main>
+
+    <footer class="bg-gray-900/50 border-t border-gray-800 mt-20">
+        <div class="container mx-auto px-6 py-6 text-center text-gray-500">
+            <p>&copy; 2025 Thiago Ramos. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
