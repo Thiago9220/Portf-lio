@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Um Guia Completo de Acessibilidade Web para Devs - Thiago Ramos</title>
+    
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-bg {
+            background-color: #0a0a0a;
+            background-image: radial-gradient(at 27% 37%, hsla(215, 98%, 61%, 0.1) 0px, transparent 50%), 
+                              radial-gradient(at 97% 21%, hsla(125, 98%, 72%, 0.1) 0px, transparent 50%), 
+                              radial-gradient(at 52% 99%, hsla(355, 98%, 61%, 0.1) 0px, transparent 50%);
+        }
+        /* Estilo para o link "Pular para o conteúdo" */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #34d399;
+            color: white;
+            padding: 8px;
+            z-index: 100;
+            transition: top 0.3s;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-300 gradient-bg">
+
+    <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
+
+    <header class="py-6">
+        <div class="container mx-auto px-6 text-center">
+            <a href="index.html#artigos" class="text-cyan-400 hover:text-cyan-300 transition-colors font-semibold">
+                &larr; Voltar para todos os artigos
+            </a>
+        </div>
+    </header>
+
+    <main id="main-content" class="container mx-auto px-6 py-12">
+        <article class="max-w-3xl mx-auto">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-4">
+                Guia Prático de Acessibilidade Web que Todo Dev Deveria Dominar
+            </h1>
+
+            <div class="text-gray-500 mb-8">
+                <span>Publicado por Thiago Ramos em 07 de Julho, 2025</span>
+            </div>
+
+            <div class="my-8 text-center">
+                <a href="assets/artigo-completo-acessibilidade.pdf" 
+                   download="Guia-Acessibilidade-Web-Thiago-Ramos.pdf"
+                   class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-cyan-600 hover:bg-cyan-700 transition-colors"
+                   aria-label="Baixar o artigo completo sobre acessibilidade em formato PDF">
+                    <i data-lucide="download-cloud" class="w-5 h-5 mr-3"></i>
+                    Baixar Guia Completo em PDF
+                </a>
+            </div>
+            <img src="https://placehold.co/1200x600/111827/6366f1?text=Acessibilidade" alt="Banner do artigo sobre Acessibilidade Web" class="w-full rounded-lg mb-8">
+
+            <div class="prose prose-invert prose-lg max-w-none 
+                        prose-headings:text-white prose-a:text-cyan-400 prose-strong:text-white
+                        prose-blockquote:border-l-cyan-500 prose-blockquote:text-gray-400">
+                
+                <p>Acessibilidade (a11y) é a prática de garantir que seus sites e aplicações possam ser usados por todas as pessoas, independentemente de suas habilidades ou deficiências. Longe de ser um "extra", é um pilar da engenharia de software de qualidade. Um site acessível não apenas atende a um público mais amplo, mas também melhora o SEO, a usabilidade geral e reflete um desenvolvimento ético e profissional. Vamos aprofundar em 5 áreas cruciais.</p>
+
+                <h2>1. HTML Semântico: A Fundação de Tudo</h2>
+                <p>A semântica é a base. Antes de qualquer framework ou estilo, a estrutura do seu HTML dita como o conteúdo é interpretado por navegadores e tecnologias assistivas, como leitores de tela. Usar a tag certa para o trabalho certo cria um "mapa" claro do seu site.</p>
+                <p>Pense em um leitor de tela. Ele não "vê" o layout. Ele navega pelos elementos do DOM. Tags como <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, e <code>&lt;main&gt;</code> criam "landmarks" (pontos de referência) que permitem ao usuário pular diretamente para a navegação ou para o conteúdo principal, em vez de ter que ouvir todo o topo da página repetidamente.</p>
+                
+                <h4>Exemplo: De "Div-ite" para Semântica</h4>
+                <p><strong>ANTES (Não semântico):</strong></p>
+                <pre><code class="language-html">&lt;div class="header"&gt;...&lt;/div&gt;
+&lt;div class="menu"&gt;...&lt;/div&gt;
+&lt;div class="main-content"&gt;...&lt;/div&gt;
+&lt;div class="footer"&gt;...&lt;/div&gt;</code></pre>
+
+                <p><strong>DEPOIS (Semântico e acessível):</strong></p>
+                <pre><code class="language-html">&lt;header&gt;...&lt;/header&gt;
+&lt;nav&gt;...&lt;/nav&gt;
+&lt;main&gt;...&lt;/main&gt;
+&lt;footer&gt;...&lt;/footer&gt;</code></pre>
+                <blockquote>Sempre se pergunte: "Qual é o propósito deste bloco?". Se a resposta for "cabeçalho", "artigo", ou "seção", use a tag correspondente. Reserve as <code>&lt;div&gt;</code>s para quando não houver uma tag semântica melhor.</blockquote>
+
+                <h2>2. Imagens Acessíveis: O Poder do Atributo `alt`</h2>
+                <p>O texto alternativo descreve o conteúdo de uma imagem para quem não pode vê-la. Isso inclui usuários de leitores de tela e também situações em que a imagem não carrega. O contexto é tudo ao escrever um bom texto `alt`.</p>
+                <ul>
+                    <li><strong>Imagens Informativas:</strong> Descreva o que a imagem mostra. Seja conciso, mas preciso.</li>
+                    <li><strong>Imagens Funcionais (dentro de links):</strong> O `alt` deve descrever a <em>ação</em> ou o destino do link, não a imagem em si.</li>
+                    <li><strong>Imagens Decorativas:</strong> Se uma imagem não adiciona informação e é puramente visual, use um `alt` vazio (<code>alt=""</code>). Isso instrui os leitores de tela a ignorá-la. Deixar o atributo `alt` de fora é um erro, pois alguns leitores podem tentar ler o nome do arquivo.</li>
+                </ul>
+                <pre><code class="language-html">&lt;!-- Imagem informativa --&gt;
+&lt;img src="equipe.jpg" alt="A equipe de desenvolvimento sorrindo em frente ao escritório."&gt;
+
+&lt;!-- Imagem funcional --&gt;
+&lt;a href="/configuracoes"&gt;
+  &lt;img src="engrenagem.svg" alt="Acessar configurações da conta."&gt;
+&lt;/a&gt;
+
+&lt;!-- Imagem decorativa --&gt;
+&lt;img src="onda-background.png" alt=""&gt;
+</code></pre>
+
+                <h2>3. Contraste de Cores: Mais que Apenas Estética</h2>
+                <p>Textos com baixo contraste são um dos problemas de acessibilidade mais comuns. Eles afetam pessoas com baixa visão, daltonismo e até mesmo usuários em ambientes com muita luz. As diretrizes do WCAG definem níveis de conformidade:</p>
+                <ul>
+                    <li><strong>Nível AA (Mínimo):</strong> Taxa de contraste de <strong>4.5:1</strong> para texto normal e <strong>3:1</strong> para texto grande.</li>
+                    <li><strong>Nível AAA (Avançado):</strong> Taxa de <strong>7:1</strong> para texto normal e <strong>4.5:1</strong> para texto grande.</li>
+                </ul>
+                <p>Você não precisa ser um expert em cálculo de cores. Use as ferramentas de desenvolvedor do seu navegador (no inspetor de elementos, o seletor de cores geralmente mostra a taxa de contraste) ou ferramentas online como o <a href="https://webaim.org/resources/contrastchecker/" target="_blank" rel="noopener noreferrer">WebAIM Contrast Checker</a>.</p>
+                
+                <h2>4. Formulários Inclusivos: A Porta de Entrada da Interação</h2>
+                <p>Formulários mal construídos são uma barreira intransponível para muitos. A regra de ouro é: **associe cada controle de formulário a uma `&lt;label&gt;` visível.**</p>
+                <pre><code class="language-html">&lt;label for="email"&gt;Seu e-mail:&lt;/label&gt;
+&lt;input type="email" id="email" name="email"&gt;</code></pre>
+                <p>Mas podemos ir além. Para grupos de opções, como checkboxes ou radio buttons, use <code>&lt;fieldset&gt;</code> para agrupar e <code>&lt;legend&gt;</code> para descrever o grupo.</p>
+                <pre><code class="language-html">&lt;fieldset&gt;
+  &lt;legend&gt;Selecione o tipo de notificação:&lt;/legend&gt;
+  
+  &lt;input type="radio" id="notif-email" name="notificacao"&gt;
+  &lt;label for="notif-email"&gt;E-mail&lt;/label&gt;
+  
+  &lt;input type="radio" id="notif-sms" name="notificacao"&gt;
+  &lt;label for="notif-sms"&gt;SMS&lt;/label&gt;
+&lt;/fieldset&gt;</code></pre>
+                <p>E lembre-se: mensagens de erro devem ser claras, associadas ao campo problemático (usando `aria-describedby`) e não depender apenas da cor para transmitir a informação.</p>
+
+                <h2>5. Navegação por Teclado e Foco Visível: Liberdade do Mouse</h2>
+                <p>Muitos usuários dependem do teclado para navegar. Garanta que todos os elementos interativos (links, botões, campos de formulário) possam ser alcançados e ativados com a tecla `Tab`. A ordem da tabulação deve ser lógica e previsível, o que geralmente é um benefício gratuito do uso de HTML semântico.</p>
+                <p>O mais importante é que o usuário **sempre saiba onde está**. O indicador de foco (geralmente um anel azul ou preto ao redor do elemento) é essencial. Nunca o remova com `outline: none;` sem fornecer uma alternativa melhor.</p>
+                <p>Use a pseudo-classe <code>:focus-visible</code>. Ela é mais inteligente que <code>:focus</code>, pois geralmente mostra o anel de foco apenas para interações via teclado, e não com o mouse, agradando designers e usuários.</p>
+                <pre><code class="language-css">/* Um indicador de foco robusto e bonito */
+:focus-visible {
+    outline: 3px solid #67e8f9; /* Cor ciano bem visível */
+    outline-offset: 3px;
+    border-radius: 4px; /* Para cantos arredondados */
+}</code></pre>
+                <blockquote><strong>Dica Bônus:</strong> Adicione um "Skip Link" (link "pular para o conteúdo") no topo do seu `&lt;body&gt;`. Ele fica escondido até receber foco via `Tab` e permite que usuários de teclado pulem diretamente para o conteúdo principal, evitando ter que passar por todo o menu a cada nova página. (Já adicionei um de exemplo nesta página!).</blockquote>
+                
+                <h2>Conclusão: Acessibilidade é Artesanato</h2>
+                <p>Incorporar a acessibilidade em seu trabalho diário eleva sua habilidade como desenvolvedor. É um sinal de profissionalismo, empatia e um compromisso com a criação de uma web que funciona para todos. Comece com estes princípios, teste suas criações e continue aprendendo. Cada pequeno ajuste contribui para uma experiência digital muito mais inclusiva.</p>
+
+            </div>
+        </article>
+    </main>
+
+    <footer class="bg-gray-900/50 border-t border-gray-800 mt-20">
+        <div class="container mx-auto px-6 py-6 text-center text-gray-500">
+            <p>&copy; 2025 Thiago Ramos. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+    
+    <script>
+      lucide.createIcons();
+    </script>
+</body>
+</html>
