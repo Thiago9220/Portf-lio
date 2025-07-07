@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conceitos básicos de Docker para Desenvolvedores - Thiago Ramos</title>
+    
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-bg {
+            background-color: #0a0a0a;
+            background-image: radial-gradient(at 27% 37%, hsla(215, 98%, 61%, 0.1) 0px, transparent 50%), 
+                              radial-gradient(at 97% 21%, hsla(125, 98%, 72%, 0.1) 0px, transparent 50%), 
+                              radial-gradient(at 52% 99%, hsla(355, 98%, 61%, 0.1) 0px, transparent 50%);
+        }
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #3b82f6;
+            color: white;
+            padding: 8px;
+            z-index: 100;
+            transition: top 0.3s;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-300 gradient-bg">
+
+    <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
+
+    <header class="py-6">
+        <div class="container mx-auto px-6 text-center">
+            <a href="index.html#artigos" class="text-cyan-400 hover:text-cyan-300 transition-colors font-semibold">
+                &larr; Voltar para todos os artigos
+            </a>
+        </div>
+    </header>
+
+    <main id="main-content" class="container mx-auto px-6 py-12">
+        <article class="max-w-3xl mx-auto">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-4">
+                Conceitos básicos de Docker para Desenvolvedores
+            </h1>
+
+            <div class="text-gray-500 mb-8">
+                <span>Publicado por Thiago Ramos em 07 de Julho, 2025</span>
+            </div>
+
+            <div class="my-8 text-center">
+                <a href="assets/artigo-completo-docker.pdf" 
+                   download="Guia-Definitivo-Docker-Thiago-Ramos.pdf"
+                   class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-cyan-600 hover:bg-cyan-700 transition-colors"
+                   aria-label="Baixar o artigo completo sobre Docker em formato PDF">
+                    <i data-lucide="download-cloud" class="w-5 h-5 mr-3"></i>
+                    Baixar Guia Completo em PDF
+                </a>
+            </div>
+            <img src="https://placehold.co/1200x600/111827/3b82f6?text=Docker" alt="Banner do artigo sobre Docker" class="w-full rounded-lg mb-8">
+
+            <div class="prose prose-invert prose-lg max-w-none 
+                        prose-headings:text-white prose-a:text-cyan-400 prose-strong:text-white
+                        prose-blockquote:border-l-cyan-500 prose-blockquote:text-gray-400">
+                
+                <p>
+                    Todo desenvolvedor já viveu o pesadelo do "mas na minha máquina funciona!". Você passa dias criando uma aplicação, tudo roda perfeitamente no seu ambiente local, mas ao enviar para um colega ou para o servidor de produção, nada funciona. Versões de linguagens incompatíveis, dependências ausentes, configurações de sistema operacional... a lista de problemas é infinita. É exatamente aqui que o Docker entra, não como uma ferramenta, mas como uma revolução na forma como desenvolvemos e distribuímos software.
+                </p>
+                <p>
+                    Este guia aprofundado irá te levar do zero ao entendimento prático de como usar Docker para criar ambientes consistentes, portáteis e prontos para produção.
+                </p>
+
+                <h2>A Analogia Definitiva: Contêineres de Navio</h2>
+                <p>
+                    Pense nos contêineres de metal que vemos em navios. Antes deles, cada mercadoria (caixas, barris, sacos) era carregada uma a uma, um processo lento e propenso a danos. Com os contêineres, tudo é padronizado. Não importa o que há dentro; o guindaste, o navio e o caminhão só precisam saber como manusear o contêiner. O Docker faz o mesmo para o software: ele empacota sua aplicação, suas bibliotecas e todas as suas dependências em um "contêiner" de software padronizado, que pode ser executado em qualquer máquina que tenha o Docker instalado.
+                </p>
+                
+                <h2>A Trindade do Docker: Imagem, Contêiner e Dockerfile</h2>
+                <p>Para dominar o Docker, você precisa entender profundamente três conceitos:</p>
+                <h3>1. Imagem (Image): A Planta da Casa</h3>
+                <p>Uma imagem é um pacote imutável (não pode ser alterado) que contém tudo o que é necessário para executar sua aplicação: o código, um sistema operacional base (como Alpine Linux ou Ubuntu), bibliotecas, variáveis de ambiente e arquivos de configuração. Ela é como a planta de uma casa: a especificação completa de como a casa deve ser.</p>
+                <p>Um detalhe crucial é que as imagens são construídas em <strong>camadas (layers)</strong>. Cada instrução em um `Dockerfile` cria uma nova camada sobre a anterior. O Docker é inteligente e armazena essas camadas em cache. Se você alterar apenas a última linha do seu `Dockerfile`, ele reutilizará todas as camadas anteriores, tornando o processo de build muito mais rápido.</p>
+
+                <h3>2. Contêiner (Container): A Casa Construída</h3>
+                <p>Um contêiner é uma instância viva e executável de uma imagem. Usando nossa analogia, se a imagem é a planta da casa, o contêiner é a casa real que você construiu. Você pode criar múltiplos contêineres (casas) a partir da mesma imagem (planta). Eles são leves e isolados uns dos outros e do sistema hospedeiro, garantindo que a aplicação dentro de um contêiner sempre se comporte da mesma forma, não importa onde seja executada.</p>
+                
+                <h3>3. Dockerfile: A Receita do Bolo</h3>
+                <p>É o arquivo de texto onde você, como arquiteto, escreve as instruções passo a passo para construir sua imagem. É uma receita que o Docker segue à risca.</p>
+
+                <h2>Guia Prático: Conteinerizando uma API Python com Boas Práticas</h2>
+                <p>Vamos criar um `Dockerfile` otimizado para uma API em FastAPI.</p>
+
+                <h3>Passo 1: Estrutura do Projeto</h3>
+                <pre><code class="language-bash">/minha-api-docker
+|-- main.py
+|-- requirements.txt
+|-- Dockerfile
+|-- .dockerignore</code></pre>
+                <p>Os arquivos `main.py` e `requirements.txt` são os mesmos do guia anterior.</p>
+
+                <p><strong>Crie o arquivo `.dockerignore`</strong>. Ele funciona como um `.gitignore`, impedindo que arquivos e pastas desnecessários sejam copiados para a imagem, tornando-a menor e o build mais rápido.</p>
+                <pre><code class="language-text"># Arquivo .dockerignore
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+venv/
+.env</code></pre>
+
+                <h3>Passo 2: O Dockerfile com Multi-stage Build</h3>
+                <p>Esta é uma técnica profissional. Usamos um "estágio de construção" para instalar dependências e um "estágio final" que só copia o necessário, resultando em uma imagem final muito menor e mais segura.</p>
+                <pre><code class="language-dockerfile"># --- Estágio 1: Builder ---
+# Usamos uma imagem completa para instalar as dependências
+FROM python:3.9 as builder
+
+WORKDIR /app
+
+# Instala o poetry para um gerenciamento de dependências mais robusto
+RUN pip install poetry
+
+# Copia apenas os arquivos de dependência
+COPY poetry.lock pyproject.toml ./
+
+# Instala as dependências em um ambiente virtual separado
+RUN poetry install --no-dev --no-root
+
+# --- Estágio 2: Final ---
+# Usamos uma imagem "slim", muito menor, para a aplicação final
+FROM python:3.9-slim
+
+WORKDIR /app
+
+# Copia o ambiente virtual com as dependências do estágio builder
+COPY --from=builder /app/.venv ./.venv
+
+# Adiciona o venv ao PATH do sistema
+ENV PATH="/app/.venv/bin:$PATH"
+
+# Copia o código da aplicação
+COPY . .
+
+# Expõe a porta que a aplicação vai usar
+EXPOSE 80
+
+# Comando para rodar a aplicação
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
+</code></pre>
+
+                <h3>Passo 3: Comandos Essenciais no Dia a Dia</h3>
+                <p>Construir e rodar é só o começo. Aqui está uma "cola" dos comandos que você mais usará:</p>
+                <ul>
+                    <li><strong>Construir a imagem:</strong> <code>docker build -t minha-api .</code></li>
+                    <li><strong>Rodar o contêiner:</strong> <code>docker run -d -p 8080:80 --name api-container minha-api</code></li>
+                    <li><strong>Ver contêineres em execução:</strong> <code>docker ps</code></li>
+                    <li><strong>Ver todos os contêineres (incluindo parados):</strong> <code>docker ps -a</code></li>
+                    <li><strong>Ver logs de um contêiner:</strong> <code>docker logs -f api-container</code></li>
+                    <li><strong>Parar um contêiner:</strong> <code>docker stop api-container</code></li>
+                    <li><strong>Remover um contêiner parado:</strong> <code>docker rm api-container</code></li>
+                </ul>
+
+                <h2>O Próximo Nível: Orquestração com Docker Compose</h2>
+                <p>Excelente, nossa API está em um contêiner! Mas e se ela precisar conversar com um banco de dados? Gerenciar múltiplos contêineres e suas redes na mão é inviável. Para isso, usamos o <strong>Docker Compose</strong>.</p>
+                <p>Crie um arquivo chamado <code>docker-compose.yml</code> na raiz do projeto:</p>
+                <pre><code class="language-yaml">version: '3.8'
+
+services:
+  # Serviço da nossa API Python
+  api:
+    build: . # Constrói a imagem a partir do Dockerfile no diretório atual
+    container_name: minha_api_service
+    ports:
+      - "8000:80" # Mapeia a porta 80 do contêiner para a porta 8000 da sua máquina
+    volumes:
+      - .:/app # Monta o código local dentro do contêiner para live reload
+    depends_on:
+      - db
+
+  # Serviço do Banco de Dados PostgreSQL
+  db:
+    image: postgres:13-alpine # Puxa a imagem oficial do PostgreSQL
+    container_name: postgres_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/ # Persiste os dados do banco
+    environment:
+      - POSTGRES_USER=thiago
+      - POSTGRES_PASSWORD=senhaforte
+      - POSTGRES_DB=minhaapi
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres_data: # Define o volume para ser gerenciado pelo Docker
+</code></pre>
+                <p>Com este arquivo, para subir toda a sua aplicação (API + Banco de Dados), você roda um único comando:</p>
+                <pre><code class="language-bash">docker-compose up -d</code></pre>
+                <p>E para derrubar tudo:</p>
+                <pre><code class="language-bash">docker-compose down</code></pre>
+                
+                <h2>Conclusão: Você Agora Pensa em Contêineres</h2>
+                <p>Parabéns! Você passou de um conceito abstrato para a conteinerização prática de uma aplicação com boas práticas e orquestração. Docker não é apenas uma ferramenta, é uma mudança de mentalidade. Ele te força a pensar em sua aplicação como um conjunto de serviços independentes, portáteis e escaláveis. Este é o alicerce do desenvolvimento de software moderno e da cultura DevOps.</p>
+
+            </div>
+        </article>
+    </main>
+
+    <footer class="bg-gray-900/50 border-t border-gray-800 mt-20">
+        <div class="container mx-auto px-6 py-6 text-center text-gray-500">
+            <p>&copy; 2025 Thiago Ramos. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+    
+    <script>
+      lucide.createIcons();
+    </script>
+</body>
+</html>
