@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,6 +21,19 @@
             background-image: radial-gradient(at 27% 37%, hsla(215, 98%, 61%, 0.1) 0px, transparent 50%), 
                               radial-gradient(at 97% 21%, hsla(125, 98%, 72%, 0.1) 0px, transparent 50%), 
                               radial-gradient(at 52% 99%, hsla(355, 98%, 61%, 0.1) 0px, transparent 50%);
+        }
+        
+        /* Estilos para o botão "Voltar ao Topo" */
+        #toTopBtn {
+            display: none; /* Oculto por padrão */
+            position: fixed;
+            bottom: 20px;
+            right: 30px;
+            z-index: 99;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            transition: opacity 0.3s, visibility 0.3s;
         }
     </style>
 </head>
@@ -204,8 +217,32 @@ def test_create_item_invalid_price():
         </div>
     </footer>
     
+    <button id="toTopBtn" onclick="scrollToTop()" title="Voltar ao topo"
+            class="p-3 rounded-full bg-cyan-600 hover:bg-cyan-700 text-white shadow-lg transition-colors">
+        <i data-lucide="arrow-up" class="w-5 h-5"></i>
+    </button>
+    
     <script>
-      lucide.createIcons();
+        lucide.createIcons();
+        
+        // --- Lógica para o botão "Voltar ao Topo" ---
+        
+        // Pega o botão
+        const toTopBtn = document.getElementById("toTopBtn");
+
+        // Mostra o botão quando o usuário rola 200px para baixo
+        window.onscroll = function() {
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                toTopBtn.style.display = "block";
+            } else {
+                toTopBtn.style.display = "none";
+            }
+        };
+
+        // Função que rola a página para o topo
+        function scrollToTop() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
     </script>
 </body>
 </html>
