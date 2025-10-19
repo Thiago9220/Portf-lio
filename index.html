@@ -54,6 +54,28 @@
             min-width: 40px;
             border-radius: 4px;
         }
+        .timeline-item {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2rem;
+            border-left: 2px solid #374151; /* bg-gray-700 */
+        }
+        .timeline-item:last-child {
+            border-left: 2px solid transparent;
+        }
+        .timeline-icon {
+            position: absolute;
+            left: -0.75rem;
+            top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            background-color: #06b6d4; /* cyan-500 */
+            color: #fff;
+        }
     </style>
 </head>
 <body class="bg-gray-900 text-gray-200 gradient-bg">
@@ -64,6 +86,7 @@
             <nav class="hidden md:flex space-x-6 items-center">
                 <a href="#sobre" class="text-gray-300 hover:text-cyan-400 transition-colors">Sobre</a>
                 <a href="#habilidades" class="text-gray-300 hover:text-cyan-400 transition-colors">Habilidades</a>
+                <a href="#experiencia" class="text-gray-300 hover:text-cyan-400 transition-colors">Experiência</a>
                 <a href="#experiencia" class="text-gray-300 hover:text-cyan-400 transition-colors">Formação</a>
                 <a href="#projetos" class="text-gray-300 hover:text-cyan-400 transition-colors">Projetos</a>
                 <a href="#artigos" class="text-gray-300 hover:text-cyan-400 transition-colors">Artigos</a>
@@ -81,6 +104,7 @@
         <div id="mobile-menu" class="hidden md:hidden bg-gray-900 text-center py-6 space-y-2">
             <a href="#sobre" class="block py-2 text-gray-300 hover:bg-gray-800" aria-label="Ir para a seção Sobre">Sobre</a>
             <a href="#habilidades" class="block py-2 text-gray-300 hover:bg-gray-800" aria-label="Ir para a seção Habilidades">Habilidades</a>
+            <a href="#experiencia" class="block py-2 text-gray-300 hover:bg-gray-800" aria-label="Ir para a seção Experiência">Experiência</a>
             <a href="#experiencia" class="block py-2 text-gray-300 hover:bg-gray-800" aria-label="Ir para a seção Formação">Formação</a>
             <a href="#projetos" class="block py-2 text-gray-300 hover:bg-gray-800" aria-label="Ir para a seção Projetos">Projetos</a>
             <a href="#artigos" class="block py-2 text-gray-300 hover:bg-gray-800" aria-label="Ir para a seção Artigos">Artigos</a>
@@ -146,6 +170,73 @@
                 <div class="bg-gray-800/50 p-6 rounded-lg flex flex-col items-center justify-center hover:bg-gray-700/70 transition-colors shadow-lg"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" class="h-16 w-16 mb-4" alt="Ícone do HTML5"/><h3 class="font-semibold text-lg text-white">HTML5</h3></div>
                 <div class="bg-gray-800/50 p-6 rounded-lg flex flex-col items-center justify-center hover:bg-gray-700/70 transition-colors shadow-lg"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" class="h-16 w-16 mb-4" alt="Ícone do CSS3"/><h3 class="font-semibold text-lg text-white">CSS3</h3></div>
                 <div class="bg-gray-800/50 p-6 rounded-lg flex flex-col items-center justify-center hover:bg-gray-700/70 transition-colors shadow-lg"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" class="h-16 w-16 mb-4" alt="Ícone do Linux"/><h3 class="font-semibold text-lg text-white">Linux</h3></div>
+            </div>
+        </section>
+
+        <section id="experiencia" class="py-20 md:py-32 reveal">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-white">Minha Experiência</h2>
+            <div class="max-w-3xl mx-auto">
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i data-lucide="briefcase" class="w-4 h-4"></i>
+                    </div>
+                    <span class="font-bold text-cyan-400 text-sm tracking-wide">Jul 2025 - Present</span>
+                    <h3 class="text-xl font-bold text-white mt-1">Desenvolvedor de Software</h3>
+                    <p class="text-gray-400 mb-4">4Quality Tecnologia</p>
+                    <ul class="list-disc list-inside text-gray-300">
+                        <li>Integração de frontend com APIs REST.</li>
+                        <li>Otimização de aplicações visando performance e responsividade.</li>
+                        <li>Colaboração com equipes multidisciplinares.</li>
+                        <li>Aplicação de boas práticas de versionamento, testes e organização de código.</li>
+                    </ul>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i data-lucide="briefcase" class="w-4 h-4"></i>
+                    </div>
+                    <span class="font-bold text-cyan-400 text-sm tracking-wide">Aug 2025 - Oct 2025</span>
+                    <h3 class="text-xl font-bold text-white mt-1">Departamento de Monitoramento e Fiscalização do Sistema Carcerário</h3>
+                    <p class="text-gray-400 mb-4">Conselho Nacional de Justiça (CNJ)</p>
+                    <ul class="list-disc list-inside text-gray-300">
+                        <li>Tratamento e análise de dados para apoio à gestão e tomada de decisões.</li>
+                        <li>Suporte técnico a usuários do Banco Nacional de Medidas Penais e Prisões (BNMP).</li>
+                        <li>Criação e manutenção de planilhas e painéis de acompanhamento.</li>
+                        <li>Organização e padronização de informações para otimizar processos internos.</li>
+                        <li>Colaboração com equipes técnicas para aprimorar fluxos de trabalho e qualidade dos dados.</li>
+                    </ul>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i data-lucide="briefcase" class="w-4 h-4"></i>
+                    </div>
+                    <span class="font-bold text-cyan-400 text-sm tracking-wide">Jul 2023 - Apr 2025</span>
+                    <h3 class="text-xl font-bold text-white mt-1">Núcleo de ciência de Dados</h3>
+                    <p class="text-gray-400 mb-4">Conselho Nacional do Ministério Público (CNMP)</p>
+                    <ul class="list-disc list-inside text-gray-300">
+                        <li>Auxiliar na realização de tarefas de coleta de dados, realizando a filtragem e limpeza dos dados para o uso analítico.</li>
+                        <li>Auxiliar na melhoria de processos, buscando a automatização e tomada de decisão orientada a dados.</li>
+                        <li>Auxiliar na interpretação de conjuntos de dados através de técnicas estatísticas, transformando dados em informação.</li>
+                        <li>Auxiliar na criação de estudos e análises estatísticas.</li>
+                        <li>Auxiliar na criação de painéis de BI utilizando a ferramenta Tableau.</li>
+                        <li>Validar e revisar painéis de BI conforme orientação do(a) supervisor(a).</li>
+                        <li>Auxiliar nas atividades de programação em Python.</li>
+                    </ul>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i data-lucide="briefcase" class="w-4 h-4"></i>
+                    </div>
+                    <span class="font-bold text-cyan-400 text-sm tracking-wide">Sep 2022 - Feb 2023</span>
+                    <h3 class="text-xl font-bold text-white mt-1">Informática</h3>
+                    <p class="text-gray-400 mb-4">Instituto Brasileiro de Geografia e Estatística (IBGE)</p>
+                    <ul class="list-disc list-inside text-gray-300">
+                        <li>Suporte técnico a dispositivos móveis e sistemas de coleta de dados utilizados na pesquisa censitária, incluindo configuração, atualização e manutenção de equipamentos.</li>
+                        <li>Diagnóstico e resolução de problemas técnicos em tempo real para minimizar interrupções no processo de coleta.</li>
+                        <li>Treinamento e orientação aos recenseadores sobre o uso de dispositivos e aplicativos, assegurando o uso correto dos sistemas de coleta de dados.</li>
+                        <li>Garantia de integridade e segurança dos dados coletados, implementando boas práticas de proteção de dados em conformidade com as diretrizes do IBGE.</li>
+                        <li>Colaboração com as equipes de campo para monitorar e solucionar questões relacionadas ao sistema e a coleta de dados.</li>
+                    </ul>
+                </div>
             </div>
         </section>
 
