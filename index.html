@@ -361,9 +361,9 @@
 
         <section id="certificados" class="py-20 md:py-32 reveal">
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-white">Licenças e Certificados</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div id="certificates-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 
-                <div class="bg-gray-800/50 p-6 rounded-lg flex flex-col hover:bg-gray-700/70 transition-colors shadow-lg">
+                <div class="bg-gray-800/50 p-6 rounded-lg flex flex-col hover:bg-gray-700/70 transition-colors shadow-lg certificate-item">
                     <div class="flex items-center mb-4">
                         <img src="/assets/scrum.png" alt="Logo Certiprof" class="cert-icon mr-4 bg-white p-1">
                         <div>
@@ -379,7 +379,7 @@
                     </a>
                 </div>
 
-                <div class="bg-gray-800/50 p-6 rounded-lg flex flex-col hover:bg-gray-700/70 transition-colors shadow-lg">
+                <div class="bg-gray-800/50 p-6 rounded-lg flex flex-col hover:bg-gray-700/70 transition-colors shadow-lg certificate-item">
                     <div class="flex items-center mb-4">
                         <img src="assets/aws.png" alt="Logo AWS" class="cert-icon mr-4">
                         <div>
@@ -395,7 +395,7 @@
                     </a>
                 </div>
 
-                <div class="bg-gray-800/50 p-6 rounded-lg flex flex-col hover:bg-gray-700/70 transition-colors shadow-lg">
+                <div class="bg-gray-800/50 p-6 rounded-lg flex flex-col hover:bg-gray-700/70 transition-colors shadow-lg certificate-item">
                     <div class="flex items-center mb-4">
                         <img src="/assets/google.png" alt="Logo Google" class="cert-icon mr-4">
                         <div>
@@ -411,7 +411,7 @@
                     </a>
                 </div>
 
-                <div class="bg-gray-800/50 p-6 rounded-lg flex flex-col hover:bg-gray-700/70 transition-colors shadow-lg">
+                <div class="bg-gray-800/50 p-6 rounded-lg flex flex-col hover:bg-gray-700/70 transition-colors shadow-lg certificate-item">
                     <div class="flex items-center mb-4">
                         <img src="/assets/IBM.png" alt="Logo IBM" class="cert-icon mr-4">
                         <div>
@@ -420,14 +420,14 @@
                         </div>
                     </div>
                     <p class="text-gray-300 text-sm mb-4 flex-grow">
-                        <span class="font-semibold text-gray-200">Competências:</span> Data Science · Metodologia de Ciência de Dados · Análise Exploratória de Dados.
+                        <span class="font-semibold text-gray-200">Competências:</span> Data Science, Metodologia de Ciência de Dados, Análise Exploratória de Dados.
                     </p>
                     <a href="https://www.coursera.org/account/accomplishments/verify/5NJW304Y2ZMR" target="_blank" rel="noopener noreferrer" class="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors mt-auto font-semibold self-start" aria-label="Ver credencial de What is Data Science?">
                         Ver Credencial <i data-lucide="external-link" class="w-4 h-4 ml-2"></i>
                     </a>
                 </div>
 
-                <div class="bg-gray-800/50 p-6 rounded-lg flex flex-col hover:bg-gray-700/70 transition-colors shadow-lg">
+                <div class="bg-gray-800/50 p-6 rounded-lg flex flex-col hover:bg-gray-700/70 transition-colors shadow-lg certificate-item">
                     <div class="flex items-center mb-4">
                         <img src="/assets/Michigan.png" alt="Logo University of Michigan" class="cert-icon mr-4">
                         <div>
@@ -443,7 +443,23 @@
                     </a>
                 </div>
 
-                <div class="bg-gray-800/50 p-6 rounded-lg flex flex-col hover:bg-gray-700/70 transition-colors shadow-lg">
+                <div class="bg-gray-800/50 p-6 rounded-lg flex flex-col hover:bg-gray-700/70 transition-colors shadow-lg certificate-item">
+                    <div class="flex items-center mb-4">
+                        <img src="/assets/google.png" alt="Logo Google" class="cert-icon mr-4">
+                        <div>
+                            <h3 class="font-bold text-lg text-white">Introduction to AI</h3>
+                            <p class="text-gray-400 text-sm">Google</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-4 flex-grow">
+                        <span class="font-semibold text-gray-200">Competências:</span> Inteligência Artificial · Machine Learning · Deep Learning · IBM Watson.
+                    </p>
+                    <a href="https://www.coursera.org/account/accomplishments/verify/OHVEXV6PF8GV" target="_blank" rel="noopener noreferrer" class="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors mt-auto font-semibold self-start" aria-label="Ver credencial de Introduction to AI">
+                        Ver Credencial <i data-lucide="external-link" class="w-4 h-4 ml-2"></i>
+                    </a>
+                </div>
+
+                <div class="bg-gray-800/50 p-6 rounded-lg flex flex-col hover:bg-gray-700/70 transition-colors shadow-lg certificate-item hidden">
                     <div class="flex items-center mb-4">
                         <img src="/assets/udemy.png" alt="Logo Udemy" class="cert-icon mr-4">
                         <div>
@@ -458,6 +474,11 @@
                         Ver Credencial <i data-lucide="external-link" class="w-4 h-4 ml-2"></i>
                     </a>
                 </div>
+            </div>
+            <div class="text-center mt-8">
+                <button id="show-more-certs-button" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition-transform transform hover:scale-105">
+                    Ver mais
+                </button>
             </div>
         </section>
 
@@ -693,6 +714,29 @@
                 top: 0,
                 behavior: 'smooth'
             });
+        });
+
+        const showMoreCertsButton = document.getElementById('show-more-certs-button');
+        const certificatesGrid = document.getElementById('certificates-grid');
+
+        showMoreCertsButton.addEventListener('click', () => {
+            const isShowingMore = showMoreCertsButton.dataset.state === 'less';
+
+            if (isShowingMore) {
+                // Hide the extra certificates
+                certificatesGrid.querySelectorAll('.certificate-item:nth-child(n+7)').forEach(cert => {
+                    cert.classList.add('hidden');
+                });
+                showMoreCertsButton.textContent = 'Ver mais';
+                showMoreCertsButton.dataset.state = 'more';
+            } else {
+                // Show all certificates
+                certificatesGrid.querySelectorAll('.certificate-item.hidden').forEach(cert => {
+                    cert.classList.remove('hidden');
+                });
+                showMoreCertsButton.textContent = 'Ver menos';
+                showMoreCertsButton.dataset.state = 'less';
+            }
         });
     </script>
 
