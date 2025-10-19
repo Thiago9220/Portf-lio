@@ -76,6 +76,97 @@
             background-color: #06b6d4; /* cyan-500 */
             color: #fff;
         }
+        .tech-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            background: rgba(6, 182, 212, 0.1);
+            color: #06b6d4;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            transition: all 0.3s ease;
+        }
+        .tech-badge:hover {
+            background: rgba(6, 182, 212, 0.2);
+            transform: translateY(-2px);
+        }
+        .experience-card {
+            position: relative;
+            background: linear-gradient(135deg, rgba(17, 24, 39, 0.5) 0%, rgba(31, 41, 55, 0.3) 100%);
+            border: 1px solid rgba(6, 182, 212, 0.1);
+            border-radius: 12px;
+            padding: 28px;
+            transition: all 0.4s ease;
+            overflow: hidden;
+        }
+        .experience-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        .experience-card:hover {
+            border-color: rgba(6, 182, 212, 0.3);
+            background: linear-gradient(135deg, rgba(17, 24, 39, 0.7) 0%, rgba(31, 41, 55, 0.5) 100%);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(6, 182, 212, 0.1);
+        }
+        .experience-card:hover::before {
+            left: 100%;
+        }
+        .period {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+        }
+        .role-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 12px 0;
+            position: relative;
+            z-index: 1;
+        }
+        .company {
+            font-size: 14px;
+            color: #9ca3af;
+            font-weight: 500;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+        }
+        .highlights {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+            position: relative;
+            z-index: 1;
+        }
+        .highlight-item {
+            font-size: 13px;
+            color: #d1d5db;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .highlight-item::before {
+            content: '▸';
+            color: #06b6d4;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body class="bg-gray-900 text-gray-200 gradient-bg">
@@ -87,7 +178,7 @@
                 <a href="#sobre" class="text-gray-300 hover:text-cyan-400 transition-colors">Sobre</a>
                 <a href="#habilidades" class="text-gray-300 hover:text-cyan-400 transition-colors">Habilidades</a>
                 <a href="#experiencia" class="text-gray-300 hover:text-cyan-400 transition-colors">Experiência</a>
-                <a href="#experiencia" class="text-gray-300 hover:text-cyan-400 transition-colors">Formação</a>
+                <a href="#formacao" class="text-gray-300 hover:text-cyan-400 transition-colors">Formação</a>
                 <a href="#projetos" class="text-gray-300 hover:text-cyan-400 transition-colors">Projetos</a>
                 <a href="#artigos" class="text-gray-300 hover:text-cyan-400 transition-colors">Artigos</a>
                 <a href="#certificados" class="text-gray-300 hover:text-cyan-400 transition-colors">Certificados</a>
@@ -105,7 +196,7 @@
             <a href="#sobre" class="block py-2 text-gray-300 hover:bg-gray-800" aria-label="Ir para a seção Sobre">Sobre</a>
             <a href="#habilidades" class="block py-2 text-gray-300 hover:bg-gray-800" aria-label="Ir para a seção Habilidades">Habilidades</a>
             <a href="#experiencia" class="block py-2 text-gray-300 hover:bg-gray-800" aria-label="Ir para a seção Experiência">Experiência</a>
-            <a href="#experiencia" class="block py-2 text-gray-300 hover:bg-gray-800" aria-label="Ir para a seção Formação">Formação</a>
+            <a href="#formacao" class="block py-2 text-gray-300 hover:bg-gray-800" aria-label="Ir para a seção Formação">Formação</a>
             <a href="#projetos" class="block py-2 text-gray-300 hover:bg-gray-800" aria-label="Ir para a seção Projetos">Projetos</a>
             <a href="#artigos" class="block py-2 text-gray-300 hover:bg-gray-800" aria-label="Ir para a seção Artigos">Artigos</a>
             <a href="#certificados" class="block py-2 text-gray-300 hover:bg-gray-800" aria-label="Ir para a seção Certificados">Certificados</a>
@@ -118,10 +209,10 @@
 
         <section id="hero" class="min-h-screen flex flex-col justify-center items-center text-center">
             <img src="assets/perfil.png" alt="Foto de perfil de Thiago Ramos" class="w-32 h-32 rounded-full mb-6 border-4 border-cyan-400/50 object-cover">
-            <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-3">Olá, eu sou Thiago Ramos</h1>
-            <p class="text-xl md:text-2xl text-cyan-400 font-semibold mb-6">Analista de Software com foco em Desenvolvimento </p>
+            <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-3">Thiago Ramos</h1>
+            <p class="text-xl md:text-2xl text-cyan-400 font-semibold mb-6">Desenvolvedor de Software & Cientista de Dados</p>
             <p class="max-w-3xl text-gray-400 mb-8">
-                Na minha jornada para me tornar especialista em desenvolvimento de software, busco transformar ideias complexas em soluções eficientes, escaláveis e bem estruturadas, sempre com foco na experiência do usuário e na qualidade do código.
+                Construo aplicações web de alta performance e extraio insights de dados para impulsionar negócios. Foco em Python, FastAPI e Machine Learning.
             </p>
             <div class="flex space-x-4">
                 <a href="#contato" class="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-6 rounded-lg transition-transform transform hover:scale-105" aria-label="Ir para a seção de contato">Entre em Contato</a>
@@ -137,7 +228,7 @@
                 </div>
                 <div class="md:w-2/3">
                     <p id="bio-text" class="w-full text-gray-300 text-lg">
-                        Formado em <span class="text-emerald-400 font-semibold">Análise e Desenvolvimento de Sistemas</span>, complementei minha formação com uma especialização em <span class="text-red-400 font-semibold">Segurança da Informação</span> e, atualmente, estou me dedicando ao estudo de <span class="text-sky-400 font-semibold">Ciência de Dados</span>. Essa jornada multidisciplinar me capacita a desenvolver soluções tecnológicas eficientes, seguras e orientadas por dados. Sou comprometido com o aprendizado constante e com a aplicação de conhecimentos técnicos para resolver desafios reais, priorizando a proteção de informações e a extração de insights estratégicos.
+                        Desenvolvedor com sólida formação em Análise de Sistemas e especialização em Segurança da Informação. Atualmente, aprofundo meus conhecimentos em Ciência de Dados para criar soluções que não apenas funcionam bem, mas que também são seguras e inteligentes. Minha paixão é transformar dados em insights e desafios complexos em aplicações elegantes e eficientes.
                     </p>
                     <div class="flex space-x-6 mt-6">
                         <a href="https://github.com/Thiago9220" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors" aria-label="Link para o perfil de Thiago Ramos no Github"><i data-lucide="github" class="w-8 h-8"></i></a>
@@ -173,69 +264,97 @@
             </div>
         </section>
 
-        <section id="experiencia" class="py-20 md:py-32 reveal">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-white">Minha Experiência</h2>
-            <div class="max-w-3xl mx-auto">
-                <div class="timeline-item">
-                    <div class="timeline-icon">
-                        <i data-lucide="briefcase" class="w-4 h-4"></i>
+        <section id="experiencia" class="py-20 md:py-32">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl md:text-5xl font-bold text-center mb-4 text-white">Experiência</h2>
+                <p class="text-center text-gray-400 mb-16 max-w-2xl mx-auto">Trajetória focada em desenvolvimento de software, análise de dados e soluções escaláveis</p>
+                
+                <div class="grid gap-6 max-w-4xl mx-auto">
+                    
+                    <!-- Desenvolvedor de Software -->
+                    <div class="experience-card">
+                        <div class="period">Jul 2025 - Present</div>
+                        <div class="role-title">Desenvolvedor de Software</div>
+                        <div class="company">4Quality Tecnologia</div>
+                        
+                        <div class="highlights">
+                            <div class="highlight-item">Integração Frontend/APIs REST</div>
+                            <div class="highlight-item">Otimização de Performance</div>
+                            <div class="highlight-item">Code Quality</div>
+                        </div>
+                        
+                        <div class="tech-badge" style="margin-top: 16px;">
+                            <i data-lucide="code" style="width: 14px; height: 14px;"></i>
+                            React
+                        </div>
+                        <div class="tech-badge">JavaScript</div>
+                        <div class="tech-badge">REST APIs</div>
+                        <div class="tech-badge">Testing</div>
                     </div>
-                    <span class="font-bold text-cyan-400 text-sm tracking-wide">Jul 2025 - Present</span>
-                    <h3 class="text-xl font-bold text-white mt-1">Desenvolvedor de Software</h3>
-                    <p class="text-gray-400 mb-4">4Quality Tecnologia</p>
-                    <ul class="list-disc list-inside text-gray-300">
-                        <li>Integração de frontend com APIs REST.</li>
-                        <li>Otimização de aplicações visando performance e responsividade.</li>
-                        <li>Colaboração com equipes multidisciplinares.</li>
-                        <li>Aplicação de boas práticas de versionamento, testes e organização de código.</li>
-                    </ul>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-icon">
-                        <i data-lucide="briefcase" class="w-4 h-4"></i>
+
+                    <!-- CNMP Data Science -->
+                    <div class="experience-card">
+                        <div class="period">Jul 2023 - Apr 2025</div>
+                        <div class="role-title">Núcleo de Ciência de Dados</div>
+                        <div class="company">Conselho Nacional do Ministério Público (CNMP)</div>
+                        
+                        <div class="highlights">
+                            <div class="highlight-item">Análise exploratória de dados</div>
+                            <div class="highlight-item">Automatização de processos</div>
+                            <div class="highlight-item">Dashboards interativos</div>
+                        </div>
+                        
+                        <div class="tech-badge" style="margin-top: 16px;">
+                            <i data-lucide="database" style="width: 14px; height: 14px;"></i>
+                            Python
+                        </div>
+                        <div class="tech-badge">Pandas</div>
+                        <div class="tech-badge">Tableau</div>
+                        <div class="tech-badge">SQL</div>
+                        <div class="tech-badge">Data Cleaning</div>
                     </div>
-                    <span class="font-bold text-cyan-400 text-sm tracking-wide">Aug 2025 - Oct 2025</span>
-                    <h3 class="text-xl font-bold text-white mt-1">Departamento de Monitoramento e Fiscalização do Sistema Carcerário</h3>
-                    <p class="text-gray-400 mb-4">Conselho Nacional de Justiça (CNJ)</p>
-                    <ul class="list-disc list-inside text-gray-300">
-                        <li>Tratamento e análise de dados para apoio à gestão e tomada de decisões.</li>
-                        <li>Suporte técnico a usuários do Banco Nacional de Medidas Penais e Prisões (BNMP).</li>
-                        <li>Criação e manutenção de planilhas e painéis de acompanhamento.</li>
-                        <li>Organização e padronização de informações para otimizar processos internos.</li>
-                        <li>Colaboração com equipes técnicas para aprimorar fluxos de trabalho e qualidade dos dados.</li>
-                    </ul>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-icon">
-                        <i data-lucide="briefcase" class="w-4 h-4"></i>
+
+                    <!-- CNJ Monitoramento -->
+                    <div class="experience-card">
+                        <div class="period">Aug 2025 - Oct 2025</div>
+                        <div class="role-title">Monitoramento e Fiscalização Carcerária</div>
+                        <div class="company">Conselho Nacional de Justiça (CNJ)</div>
+                        
+                        <div class="highlights">
+                            <div class="highlight-item">Tratamento de dados em larga escala</div>
+                            <div class="highlight-item">Painéis de acompanhamento</div>
+                            <div class="highlight-item">Suporte técnico BNMP</div>
+                        </div>
+                        
+                        <div class="tech-badge" style="margin-top: 16px;">
+                            <i data-lucide="bar-chart-3" style="width: 14px; height: 14px;"></i>
+                            Python
+                        </div>
+                        <div class="tech-badge">Excel/Sheets</div>
+                        <div class="tech-badge">Data Analysis</div>
+                        <div class="tech-badge">Power BI</div>
                     </div>
-                    <span class="font-bold text-cyan-400 text-sm tracking-wide">Jul 2023 - Apr 2025</span>
-                    <h3 class="text-xl font-bold text-white mt-1">Núcleo de ciência de Dados</h3>
-                    <p class="text-gray-400 mb-4">Conselho Nacional do Ministério Público (CNMP)</p>
-                    <ul class="list-disc list-inside text-gray-300">
-                        <li>Auxiliar na realização de tarefas de coleta de dados, realizando a filtragem e limpeza dos dados para o uso analítico.</li>
-                        <li>Auxiliar na melhoria de processos, buscando a automatização e tomada de decisão orientada a dados.</li>
-                        <li>Auxiliar na interpretação de conjuntos de dados através de técnicas estatísticas, transformando dados em informação.</li>
-                        <li>Auxiliar na criação de estudos e análises estatísticas.</li>
-                        <li>Auxiliar na criação de painéis de BI utilizando a ferramenta Tableau.</li>
-                        <li>Validar e revisar painéis de BI conforme orientação do(a) supervisor(a).</li>
-                        <li>Auxiliar nas atividades de programação em Python.</li>
-                    </ul>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-icon">
-                        <i data-lucide="briefcase" class="w-4 h-4"></i>
+
+                    <!-- IBGE -->
+                    <div class="experience-card">
+                        <div class="period">Sep 2022 - Feb 2023</div>
+                        <div class="role-title">Suporte Técnico em Informática</div>
+                        <div class="company">Instituto Brasileiro de Geografia e Estatística (IBGE)</div>
+                        
+                        <div class="highlights">
+                            <div class="highlight-item">Gestão de dispositivos móveis</div>
+                            <div class="highlight-item">Troubleshooting em tempo real</div>
+                            <div class="highlight-item">Segurança de dados</div>
+                        </div>
+                        
+                        <div class="tech-badge" style="margin-top: 16px;">
+                            <i data-lucide="smartphone" style="width: 14px; height: 14px;"></i>
+                            Android
+                        </div>
+                        <div class="tech-badge">Linux</div>
+                        <div class="tech-badge">Data Security</div>
+                        <div class="tech-badge">Troubleshooting</div>
                     </div>
-                    <span class="font-bold text-cyan-400 text-sm tracking-wide">Sep 2022 - Feb 2023</span>
-                    <h3 class="text-xl font-bold text-white mt-1">Informática</h3>
-                    <p class="text-gray-400 mb-4">Instituto Brasileiro de Geografia e Estatística (IBGE)</p>
-                    <ul class="list-disc list-inside text-gray-300">
-                        <li>Suporte técnico a dispositivos móveis e sistemas de coleta de dados utilizados na pesquisa censitária, incluindo configuração, atualização e manutenção de equipamentos.</li>
-                        <li>Diagnóstico e resolução de problemas técnicos em tempo real para minimizar interrupções no processo de coleta.</li>
-                        <li>Treinamento e orientação aos recenseadores sobre o uso de dispositivos e aplicativos, assegurando o uso correto dos sistemas de coleta de dados.</li>
-                        <li>Garantia de integridade e segurança dos dados coletados, implementando boas práticas de proteção de dados em conformidade com as diretrizes do IBGE.</li>
-                        <li>Colaboração com as equipes de campo para monitorar e solucionar questões relacionadas ao sistema e a coleta de dados.</li>
-                    </ul>
                 </div>
             </div>
         </section>
@@ -326,7 +445,7 @@
             </div>
         </section>
 
-        <section id="experiencia" class="py-20 md:py-32 reveal">
+        <section id="formacao" class="py-20 md:py-32 reveal">
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-white">Minha Formação</h2>
             <div class="relative max-w-2xl mx-auto">
                 <div class="absolute left-1/2 w-0.5 h-full bg-gray-700 transform -translate-x-1/2"></div>
