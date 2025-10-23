@@ -48,9 +48,21 @@
             cursor: pointer;
             transition: opacity 0.3s, visibility 0.3s;
         }
-    </style>
+</style>
 </head>
 <body class="bg-gray-900 text-gray-300 gradient-bg">
+    <style>
+        body.immersion-mode.gradient-bg {
+            background-color: #0a0614;
+            background-image:
+                radial-gradient(at 20% 20%, rgba(217,70,239,0.12) 0px, transparent 50%),
+                radial-gradient(at 80% 30%, rgba(59,130,246,0.12) 0px, transparent 50%),
+                radial-gradient(at 50% 90%, rgba(236,72,153,0.10) 0px, transparent 50%),
+                radial-gradient(at 10% 80%, rgba(34,197,94,0.06) 0px, transparent 50%);
+            transition: background 800ms ease;
+        }
+        body.immersion-mode header { background: rgba(49, 10, 70, 0.45); border-bottom: 1px solid rgba(217, 70, 239, 0.18); }
+    </style>
 
     <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
 
@@ -59,6 +71,12 @@
             <a href="../index.html#artigos" class="text-cyan-400 hover:text-cyan-300 transition-colors font-semibold">
                 &larr; Voltar para todos os artigos
             </a>
+            <div class="mt-4">
+                <button id="immersion-toggle" aria-pressed="false" class="inline-flex items-center text-sm font-semibold px-3 py-2 rounded-lg bg-fuchsia-600 hover:bg-fuchsia-700 text-white transition-transform transform hover:scale-105" aria-label="Ativar modo de imersão (visual + áudio)">
+                    <i data-lucide="waves" class="w-4 h-4 mr-2"></i>
+                    Imersão
+                </button>
+            </div>
         </div>
     </header>
 
@@ -259,6 +277,43 @@ volumes:
         function scrollToTop() {
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
+    </script>
+
+    <script>
+        (function() {
+            const BODY = document.body;
+            const PREF_KEY = 'immersion-mode';
+            const PREF_TRACK = 'immersion-track';
+            const PREF_VOL = 'immersion-volume';
+            const PREF_MUTED = 'immersion-muted';
+            const headerBtn = document.getElementById('immersion-toggle');
+            let enabled = false; let autoStartPending = false; let controls; let volInput; let muteBtn; let trackLofiBtn; let trackSynthBtn;
+
+            const synth = { ctx: null, master: null, filter: null, delay: null, fb: null, timer: null, idx: 0, track: 'synth', noise: null, lfo: null, lfoGain: null,
+                ensure(){ if(this.ctx) return; const AC=window.AudioContext||window.webkitAudioContext; if(!AC) return; const ctx=new AC(); const master=ctx.createGain(); master.gain.value=Number(localStorage.getItem(PREF_VOL)||0.18); const filter=ctx.createBiquadFilter(); filter.type='lowpass'; filter.frequency.value=1200; filter.Q.value=0.7; const delay=ctx.createDelay(); delay.delayTime.value=0.34; const fb=ctx.createGain(); fb.gain.value=0.28; const noiseBuf=ctx.createBuffer(1,ctx.sampleRate*2,ctx.sampleRate); const data=noiseBuf.getChannelData(0); for(let i=0;i<data.length;i++) data[i]=(Math.random()*2-1)*0.6; const noise=ctx.createBufferSource(); noise.buffer=noiseBuf; noise.loop=true; const noiseGain=ctx.createGain(); noiseGain.gain.value=0.0; noise.connect(noiseGain).connect(filter); noise.start(); const lfo=ctx.createOscillator(); lfo.type='sine'; lfo.frequency.value=0.25; const lfoGain=ctx.createGain(); lfoGain.gain.value=0.0; lfo.connect(lfoGain).connect(master.gain); lfo.start(); filter.connect(delay); delay.connect(fb); fb.connect(delay); filter.connect(master); delay.connect(master); master.connect(ctx.destination); this.ctx=ctx; this.master=master; this.filter=filter; this.delay=delay; this.fb=fb; this.noise=noiseGain; this.lfo=lfo; this.lfoGain=lfoGain; this.setTrack(localStorage.getItem(PREF_TRACK)||'synth'); },
+                midiToFreq(m){ return 440*Math.pow(2,(m-69)/12); },
+                playChord(){ if(!this.ctx) return; const CHORDS=[[57,60,64,67],[55,59,62,65],[52,55,59,62],[60,64,67,71]]; const now=this.ctx.currentTime; const chord=CHORDS[this.idx++%CHORDS.length]; chord.forEach((m,i)=>{ const osc=this.ctx.createOscillator(); const env=this.ctx.createGain(); const useSine=this.track==='lofi'; osc.type=useSine?'sine':(i%2?'triangle':'sawtooth'); osc.frequency.value=this.midiToFreq(m); osc.detune.value=(Math.random()*2-1)*(useSine?4:8); env.gain.setValueAtTime(0.0001,now); env.gain.linearRampToValueAtTime(useSine?0.18:0.22,now+1.1+i*0.05); env.gain.linearRampToValueAtTime(0.0,now+3.8+i*0.08); osc.connect(env); env.connect(this.filter); osc.start(now+i*0.03); osc.stop(now+4.5); }); },
+                setTrack(t){ this.track=t==='lofi'?'lofi':'synth'; if(!this.filter) return; if(this.track==='lofi'){ this.filter.frequency.setTargetAtTime(900,this.ctx.currentTime,0.2); this.noise.gain.setTargetAtTime(0.02,this.ctx.currentTime,0.5); this.lfoGain.gain.setTargetAtTime(0.02,this.ctx.currentTime,0.5);} else { this.filter.frequency.setTargetAtTime(1200,this.ctx.currentTime,0.2); this.noise.gain.setTargetAtTime(0.0,this.ctx.currentTime,0.3); this.lfoGain.gain.setTargetAtTime(0.0,this.ctx.currentTime,0.3);} },
+                start(){ this.ensure(); if(!this.ctx) return; this.ctx.resume(); if(this.timer) clearInterval(this.timer); this.playChord(); this.timer=setInterval(()=>this.playChord(),4000); },
+                stop(){ if(!this.ctx) return; if(this.timer){ clearInterval(this.timer); this.timer=null; } try{ this.ctx.suspend(); }catch{} }
+            };
+
+            function applyVisual(s){ BODY.classList.toggle('immersion-mode',s); headerBtn&&headerBtn.setAttribute('aria-pressed',String(s)); if(controls) controls.classList.toggle('hidden',!s); }
+            function enable(){ enabled=true; localStorage.setItem(PREF_KEY,'on'); applyVisual(true); if(localStorage.getItem(PREF_MUTED)!=='on') synth.start(); }
+            function disable(){ enabled=false; localStorage.setItem(PREF_KEY,'off'); applyVisual(false); synth.stop(); }
+            function toggle(){ enabled?disable():enable(); }
+
+            headerBtn&&headerBtn.addEventListener('click',toggle);
+            document.addEventListener('keydown',(e)=>{ if(e.key==='m'||e.key==='M'){ const tag=(document.activeElement&&document.activeElement.tagName)||''; if(["INPUT","TEXTAREA","SELECT"].includes(tag)||(document.activeElement&&document.activeElement.isContentEditable)) return; toggle(); }});
+            document.addEventListener('visibilitychange',()=>{ if(!synth.ctx) return; if(document.hidden) synth.stop(); else if(enabled && localStorage.getItem(PREF_MUTED)!=='on') synth.start(); });
+
+            function buildControls(){ controls=document.getElementById('immersion-controls'); if(controls) return; controls=document.createElement('div'); controls.id='immersion-controls'; controls.className='hidden fixed bottom-20 right-4 md:right-6 bg-black/60 backdrop-blur-md border border-fuchsia-500/30 rounded-xl p-3 shadow-2xl text-xs text-gray-200 z-50'; controls.innerHTML=`<div class=\"flex items-center gap-2 mb-2\"><span class=\"text-fuchsia-300 font-semibold\">Imersão</span><span class=\"ml-2 text-[10px] text-gray-400\">(M alterna)</span></div><div class=\"flex items-center gap-2\"><button id=\"imm-mute\" class=\"inline-flex items-center justify-center w-8 h-8 rounded-md bg-gray-800/70 hover:bg-gray-700/70 border border-gray-700 text-gray-200\" aria-label=\"Ativar/Desativar som\"><i data-lucide=\"volume-2\" class=\"w-4 h-4\"></i></button><input id=\"imm-vol\" type=\"range\" min=\"0\" max=\"1\" step=\"0.01\" class=\"w-32 accent-fuchsia-500\" aria-label=\"Volume\"><div class=\"ml-2 inline-flex bg-gray-800/70 rounded-md border border-gray-700\"><button id=\"imm-track-lofi\" class=\"px-2 py-1 rounded-l-md\">Lo-fi</button><button id=\"imm-track-synth\" class=\"px-2 py-1 rounded-r-md\">Synth</button></div></div>`; document.body.appendChild(controls); lucide.createIcons(); volInput=controls.querySelector('#imm-vol'); muteBtn=controls.querySelector('#imm-mute'); trackLofiBtn=controls.querySelector('#imm-track-lofi'); trackSynthBtn=controls.querySelector('#imm-track-synth'); const savedVol=Number(localStorage.getItem(PREF_VOL)||0.18); volInput.value=String(savedVol); const savedTrack=localStorage.getItem(PREF_TRACK)||'synth'; setTrackButtons(savedTrack); if(localStorage.getItem(PREF_MUTED)==='on') setMutedUI(true); volInput.addEventListener('input',()=>{ const v=Number(volInput.value||0); localStorage.setItem(PREF_VOL,String(v)); synth.ensure(); if(synth.master){ synth.master.gain.value=v; } if(v>0){ setMutedUI(false); localStorage.setItem(PREF_MUTED,'off'); }}); muteBtn.addEventListener('click',()=>{ const currentlyMuted=localStorage.getItem(PREF_MUTED)==='on'; setMutedUI(!currentlyMuted); if(!currentlyMuted){ localStorage.setItem(PREF_MUTED,'on'); synth.stop(); } else { localStorage.setItem(PREF_MUTED,'off'); if(enabled) synth.start(); }}); trackLofiBtn.addEventListener('click',()=>switchTrack('lofi')); trackSynthBtn.addEventListener('click',()=>switchTrack('synth')); }
+            function setMutedUI(m){ const icon=muteBtn.querySelector('i'); icon.setAttribute('data-lucide', m ? 'volume-x' : 'volume-2'); lucide.createIcons(); }
+            function setTrackButtons(t){ trackLofiBtn.className='px-2 py-1 rounded-l-md '+(t==='lofi'?'bg-fuchsia-600 text-white':'text-gray-300 hover:bg-gray-700/60'); trackSynthBtn.className='px-2 py-1 rounded-r-md '+(t==='synth'?'bg-fuchsia-600 text-white':'text-gray-300 hover:bg-gray-700/60'); }
+            function switchTrack(t){ localStorage.setItem(PREF_TRACK,t); synth.ensure(); synth.setTrack(t); setTrackButtons(t); }
+
+            const saved = localStorage.getItem(PREF_KEY); buildControls(); if(saved==='on'){ enabled=true; applyVisual(true); autoStartPending=true; const kickoff=()=>{ if(!autoStartPending) return; autoStartPending=false; enable(); document.removeEventListener('pointerdown',kickoff); }; document.addEventListener('pointerdown',kickoff,{once:true}); }
+        })();
     </script>
 </body>
 </html>
