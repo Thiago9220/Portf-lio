@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR" class="scroll-smooth">
 <head>
-    <meta charset="UTF-t-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="ZHtSmixeniPtpQ4zdFJChuxO3rTzsTknjTUTMyEM3oY" />
 
@@ -174,6 +174,68 @@
             font-weight: bold;
         }
     </style>
+    <style>
+        /* Typewriter effect for hero subtitle */
+        .typewriter > .cursor {
+            display: inline-block;
+            width: 1ch;
+            color: #22d3ee;
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* Secret terminal overlay */
+        .secret-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(6px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .secret-overlay.active { display: flex; }
+        .terminal {
+            width: min(720px, 92vw);
+            background: #0a0f14;
+            border: 1px solid #064e3b;
+            border-radius: 12px;
+            color: #d1fae5;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            overflow: hidden;
+        }
+        .terminal .bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            background: linear-gradient(90deg, #052e2b, #0b3a2f);
+            border-bottom: 1px solid #064e3b;
+        }
+        .dot { width: 10px; height: 10px; border-radius: 999px; }
+        .dot.red { background: #ef4444; }
+        .dot.yellow { background: #f59e0b; }
+        .dot.green { background: #22c55e; }
+        .terminal .body { padding: 18px; max-height: 60vh; overflow: auto; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+        .scan { color: #5eead4; }
+        .cmd { color: #a7f3d0; }
+        .hint { color: #93c5fd; }
+        .input-line { display: flex; gap: 8px; align-items: center; margin-top: 12px; }
+        .prompt { color: #22d3ee; }
+        .term-input { flex: 1; background: #071219; color: #e2e8f0; border: 1px solid #0e7490; border-radius: 8px; padding: 10px 12px; outline: none; }
+        .term-input:focus { border-color: #22d3ee; box-shadow: 0 0 0 3px rgba(34,211,238,0.15); }
+
+        /* Confetti */
+        .confetti { position: fixed; top: -10px; width: 10px; height: 14px; opacity: 0.9; z-index: 1100; }
+        @keyframes fall { 0% { transform: translateY(-10vh) rotate(0deg); } 100% { transform: translateY(110vh) rotate(720deg); } }
+
+        /* Glitchy subtle link (hidden trigger helper) */
+        .glitchy { position: relative; }
+        .glitchy::after, .glitchy::before { content: attr(data-text); position: absolute; left: 0; top: 0; color: #22d3ee; opacity: 0.12; filter: blur(0.5px); }
+        .glitchy::before { transform: translate(1px, -1px); }
+        .glitchy::after { transform: translate(-1px, 1px); }
+    </style>
 </head>
 <body class="bg-gray-900 text-gray-200 gradient-bg">
 
@@ -216,7 +278,7 @@
         <section id="hero" class="min-h-screen flex flex-col justify-center items-center text-center">
             <img src="assets/perfil.png" alt="Foto de perfil de Thiago Ramos" class="w-32 h-32 rounded-full mb-6 border-4 border-cyan-400/50 object-cover">
             <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-3">Thiago Ramos</h1>
-            <p class="text-xl md:text-2xl text-cyan-400 font-semibold mb-6">Desenvolvedor de Software & Cientista de Dados</p>
+            <p id="hero-subtitle" class="typewriter text-xl md:text-2xl text-cyan-400 font-semibold mb-6"></p>
             <p class="max-w-3xl text-gray-400 mb-8">
                 Construo aplicações web de alta performance e extraio insights de dados para impulsionar negócios. Foco em Python, FastAPI e Machine Learning.
             </p>
@@ -670,6 +732,44 @@
 
     </main>
 
+        <!-- Área Secreta: Terminal de Desafio -->
+        <div id="secret-overlay" class="secret-overlay" aria-hidden="true">
+            <div class="terminal" role="dialog" aria-label="Terminal Secreto">
+                <div class="bar">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="ml-2 text-xs text-teal-200/80">/root/easter-egg ▶ hack --access</span>
+                </div>
+                <div class="body">
+                    <div class="scan">[•] Iniciando varredura de portas… ok</div>
+                    <div class="scan">[•] Bypass do firewall… ok</div>
+                    <div class="scan">[•] Gerando token efêmero… ok</div>
+                    <div class="cmd mt-3">Desafio: prove curiosidade. Dica: Base64.</div>
+                    <div class="hint mt-1">c29ycmlzbw==</div>
+                    <div class="input-line">
+                        <span class="prompt">guest@thiago:~$</span>
+                        <input id="terminal-input" class="term-input" type="text" placeholder="Digite a palavra secreta e pressione Enter" aria-label="Entrada do terminal secreto" />
+                    </div>
+                    <div id="terminal-feedback" class="mt-3 text-sm"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Easter Egg: Gerador de Mantras de Código -->
+        <section id="easter-egg" class="py-20 md:py-32 hidden reveal">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-6 text-white">Projeto Secreto: Gerador de Mantras</h2>
+            <p class="text-center text-gray-400 mb-10 max-w-2xl mx-auto">Frases curtas para lembrar por que criamos: emoção, propósito e impacto.</p>
+            <div class="max-w-3xl mx-auto bg-gray-800/50 rounded-xl border border-cyan-500/20 p-6 shadow-xl">
+                <div id="mantra" class="text-center text-xl md:text-2xl font-semibold text-cyan-300 min-h-[3rem]"></div>
+                <div class="flex items-center justify-center gap-4 mt-6">
+                    <button id="btn-gerar" class="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 rounded-lg transition-transform transform hover:scale-105">Gerar mantra</button>
+                    <button id="btn-copiar" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition-transform transform hover:scale-105">Copiar</button>
+                </div>
+                <p class="text-center text-xs text-gray-500 mt-4">Dica: digite <span class="glitchy" data-text="hack">hack</span> em qualquer lugar ou use o Konami Code para abrir o terminal.</p>
+            </div>
+        </section>
+
     <footer class="bg-gray-900/50 border-t border-gray-800 mt-20">
         <div class="container mx-auto px-6 py-6 text-center text-gray-500">
             <p>&copy; 2025 Thiago Ramos. Todos os direitos reservados.</p>
@@ -744,6 +844,124 @@
                 showMoreCertsButton.dataset.state = 'less';
             }
         });
+
+        // Typewriter: hero subtitle (emoção + propósito)
+        const subtitleEl = document.getElementById('hero-subtitle');
+        if (subtitleEl) {
+            const phrases = [
+                'Desenvolvo com propósito.',
+                'Transformo dados em decisões.',
+                'Crio experiências que sentem.'
+            ];
+            let p = 0, i = 0, del = false;
+            const tick = () => {
+                const full = phrases[p];
+                subtitleEl.textContent = full.slice(0, i) + ' ';
+                const cursor = document.createElement('span');
+                cursor.className = 'cursor';
+                cursor.textContent = '▍';
+                subtitleEl.appendChild(cursor);
+                if (!del && i < full.length) { i++; setTimeout(tick, 70); }
+                else if (!del && i === full.length) { del = true; setTimeout(tick, 1400); }
+                else if (del && i > 0) { i--; setTimeout(tick, 40); }
+                else { del = false; p = (p + 1) % phrases.length; setTimeout(tick, 250); }
+            };
+            tick();
+        }
+
+        // Seção secreta: abrir por 'hack' ou Konami Code
+        const overlay = document.getElementById('secret-overlay');
+        const input = document.getElementById('terminal-input');
+        const feedback = document.getElementById('terminal-feedback');
+        const openSecret = () => { if (!overlay) return; overlay.classList.add('active'); setTimeout(() => input && input.focus(), 50); };
+        const closeSecret = () => { if (!overlay) return; overlay.classList.remove('active'); };
+
+        // Click em dicas glitchy também abre
+        document.querySelectorAll('.glitchy').forEach(el => el.addEventListener('click', openSecret));
+
+        let buffer = '';
+        const KONAMI = [38,38,40,40,37,37,39,39,66,65];
+        let kPos = 0;
+        document.addEventListener('keydown', (e) => {
+            // Konami
+            if (e.keyCode === KONAMI[kPos]) { kPos++; if (kPos === KONAMI.length) { openSecret(); kPos = 0; } }
+            else { kPos = 0; }
+
+            // 'hack'
+            if (e.key && e.key.length === 1) {
+                buffer = (buffer + e.key.toLowerCase()).slice(-4);
+                if (buffer === 'hack') openSecret();
+            }
+            if (e.key === 'Escape') closeSecret();
+        });
+
+        if (input) {
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    const v = (input.value || '').trim().toLowerCase();
+                    if (v === 'sorriso') {
+                        feedback.textContent = 'Acesso concedido. Desbloqueando…';
+                        feedback.style.color = '#34d399';
+                        triggerConfetti();
+                        setTimeout(() => {
+                            closeSecret();
+                            const egg = document.getElementById('easter-egg');
+                            if (egg) { egg.classList.remove('hidden'); egg.scrollIntoView({ behavior: 'smooth' }); }
+                        }, 800);
+                    } else {
+                        feedback.textContent = 'Palavra inválida. Dica: Base64 de c29ycmlzbw==';
+                        feedback.style.color = '#fca5a5';
+                    }
+                    input.value = '';
+                }
+            });
+        }
+
+        function triggerConfetti() {
+            const colors = ['#22d3ee','#f472b6','#f59e0b','#84cc16','#a78bfa'];
+            for (let i = 0; i < 40; i++) {
+                const el = document.createElement('div');
+                el.className = 'confetti';
+                el.style.background = colors[Math.floor(Math.random() * colors.length)];
+                el.style.left = Math.random() * 100 + 'vw';
+                el.style.animation = `fall ${3 + Math.random() * 2}s linear`;
+                el.style.transform = `rotate(${Math.random() * 360}deg)`;
+                document.body.appendChild(el);
+                setTimeout(() => el.remove(), 6000);
+            }
+        }
+
+        // Gerador de mantras de código (easter egg)
+        const mantraEl = document.getElementById('mantra');
+        const btnGerar = document.getElementById('btn-gerar');
+        const btnCopiar = document.getElementById('btn-copiar');
+        const MANTRAS = [
+            'Código é promessa de cuidado.',
+            'Simplicidade é um ato de coragem.',
+            'Performance com propósito, não por vaidade.',
+            'Dados contam histórias — eu as escuto.',
+            'Acessibilidade é respeito em forma de interface.',
+            'Primeiro as pessoas, depois as ferramentas.',
+            'Pequenos detalhes, grandes experiências.',
+            'Automatizar é libertar tempo para criar.',
+            'Refatorar é escrever o futuro do código.',
+            'Tests são cartas de amor ao eu de amanhã.'
+        ];
+        function gerar() {
+            if (!mantraEl) return;
+            mantraEl.textContent = MANTRAS[Math.floor(Math.random() * MANTRAS.length)];
+        }
+        btnGerar && btnGerar.addEventListener('click', gerar);
+        btnCopiar && btnCopiar.addEventListener('click', async () => {
+            if (!mantraEl || !mantraEl.textContent) return;
+            try {
+                await navigator.clipboard.writeText(mantraEl.textContent);
+                const old = btnCopiar.textContent;
+                btnCopiar.textContent = 'Copiado!';
+                setTimeout(() => btnCopiar.textContent = old, 1200);
+            } catch {}
+        });
+        if (mantraEl) gerar();
     </script>
 
 </body>
