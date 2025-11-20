@@ -8,11 +8,149 @@
 
   let enabled = false;
   let controls;
+  let typewriterIntervals = [];
+  let originalTexts = new Map();
+  let heroTypewriterInterval = null;
+
+
+  const typewriterSelectors = [
+    '#bio-text',
+    '.project-description',
+    '.experience-card .company',
+    '.experience-card .role-title'
+  ];
+
+
+  const heroPhrases = [
+    'Desenvolvo com propósito.',
+    'Transformo dados em decisões.',
+    'Crio experiências que sentem.'
+  ];
+
+  function startHeroTypewriter() {
+    const subtitleEl = document.getElementById('hero-subtitle');
+    if (!subtitleEl) return;
+
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    const animateHero = () => {
+      if (!enabled) return;
+
+      const currentPhrase = heroPhrases[phraseIndex];
+
+      if (!isDeleting && charIndex <= currentPhrase.length) {
+        subtitleEl.textContent = currentPhrase.slice(0, charIndex) + ' ';
+        const cursor = document.createElement('span');
+        cursor.className = 'cursor';
+        cursor.textContent = '|';
+        cursor.style.color = '#d946ef';
+        subtitleEl.appendChild(cursor);
+        charIndex++;
+        setTimeout(animateHero, 70);
+      } else if (!isDeleting && charIndex > currentPhrase.length) {
+        isDeleting = true;
+        setTimeout(animateHero, 1400);
+      } else if (isDeleting && charIndex > 0) {
+        charIndex--;
+        subtitleEl.textContent = currentPhrase.slice(0, charIndex) + ' ';
+        const cursor = document.createElement('span');
+        cursor.className = 'cursor';
+        cursor.textContent = '|';
+        cursor.style.color = '#d946ef';
+        subtitleEl.appendChild(cursor);
+        setTimeout(animateHero, 40);
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        phraseIndex = (phraseIndex + 1) % heroPhrases.length;
+        setTimeout(animateHero, 250);
+      }
+    };
+
+    animateHero();
+  }
+
+  function stopHeroTypewriter() {
+    const subtitleEl = document.getElementById('hero-subtitle');
+    if (subtitleEl) {
+      subtitleEl.textContent = 'Desenvolvedor de Software';
+    }
+  }
+
+  function startTypewriter(element) {
+    if (!element || !element.textContent) return;
+
+
+    if (!originalTexts.has(element)) {
+      originalTexts.set(element, element.textContent);
+    }
+
+    const fullText = originalTexts.get(element);
+    let currentIndex = 0;
+    let isDeleting = false;
+
+    const animate = () => {
+      if (!enabled) return;
+
+      if (!isDeleting && currentIndex <= fullText.length) {
+        element.textContent = fullText.slice(0, currentIndex);
+        currentIndex++;
+      } else if (!isDeleting && currentIndex > fullText.length) {
+
+        setTimeout(() => { isDeleting = true; }, 2000);
+        return;
+      } else if (isDeleting && currentIndex > 0) {
+        currentIndex--;
+        element.textContent = fullText.slice(0, currentIndex);
+      } else if (isDeleting && currentIndex === 0) {
+
+        isDeleting = false;
+        setTimeout(animate, 500);
+        return;
+      }
+
+      const speed = isDeleting ? 20 : 40;
+      setTimeout(animate, speed);
+    };
+
+    animate();
+  }
+
+  function stopAllTypewriters() {
+    typewriterIntervals.forEach(interval => clearInterval(interval));
+    typewriterIntervals = [];
+
+
+    originalTexts.forEach((text, element) => {
+      if (element) element.textContent = text;
+    });
+  }
+
+  function initTypewriters() {
+
+    startHeroTypewriter();
+
+    typewriterSelectors.forEach(selector => {
+      const elements = document.querySelectorAll(selector);
+      elements.forEach((el, index) => {
+
+        setTimeout(() => startTypewriter(el), index * 300);
+      });
+    });
+  }
 
   function applyVisual(state) {
     BODY.classList.toggle('immersion-mode', state);
     headerBtn && headerBtn.setAttribute('aria-pressed', String(state));
     if (controls) controls.classList.toggle('hidden', !state);
+
+    if (state) {
+      initTypewriters();
+    } else {
+      stopAllTypewriters();
+      stopHeroTypewriter();
+    }
   }
 
   function enable() {

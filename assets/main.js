@@ -152,25 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const subtitleEl = document.getElementById('hero-subtitle');
   if (subtitleEl) {
-    const phrases = [
-      'Desenvolvo com propósito.',
-      'Transformo dados em decisões.',
-      'Crio experiências que sentem.'
-    ];
-    let p = 0, i = 0, del = false;
-    const tick = () => {
-      const full = phrases[p];
-      subtitleEl.textContent = full.slice(0, i) + ' ';
-      const cursor = document.createElement('span');
-      cursor.className = 'cursor';
-      cursor.textContent = '|';
-      subtitleEl.appendChild(cursor);
-      if (!del && i < full.length) { i++; setTimeout(tick, 70); }
-      else if (!del && i === full.length) { del = true; setTimeout(tick, 1400); }
-      else if (del && i > 0) { i--; setTimeout(tick, 40); }
-      else { del = false; p = (p + 1) % phrases.length; setTimeout(tick, 250); }
-    };
-    tick();
+    subtitleEl.textContent = 'Desenvolvedor de Software';
   }
 
   
