@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const subtitleEl = document.getElementById('hero-subtitle');
   if (subtitleEl) {
-    subtitleEl.textContent = 'Desenvolvedor de Software';
+    subtitleEl.textContent = 'Full-Stack Developer | Software Engineer';
   }
 
   
