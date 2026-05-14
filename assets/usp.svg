@@ -7,5 +7,5 @@
     </style>
   </defs>
   <rect class="bg" x="0" y="0" width="256" height="256" rx="16" ry="16" />
-  <text class="text" x="50%" y="58%" font-size="150" text-anchor="middle" dominant-baseline="middle">USP</text>
+  <text class="text" x="50%" y="54%" font-size="110" text-anchor="middle" dominant-baseline="middle">USP</text>
 </svg>

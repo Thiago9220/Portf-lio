@@ -28,10 +28,14 @@ body {
 
 
 .cert-icon {
-  width: 40px;
-  height: 40px;
-  min-width: 40px;
-  border-radius: 4px;
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+  border-radius: 6px;
+  object-fit: contain;
+  object-position: center;
+  background-color: transparent;
+  padding: 1px;
 }
 
 .timeline-item {

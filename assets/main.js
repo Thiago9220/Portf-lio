@@ -38,6 +38,34 @@ document.addEventListener('DOMContentLoaded', () => {
   
   const certificates = [
     {
+      title: 'Introdução ao Machine Learning com Python',
+      org: 'USP - Universidade de São Paulo',
+      icon: '/assets/usp.svg',
+      link: 'https://uspdigital.usp.br/apolo/extDiplomaBaixar.jsp?codpubmtr=51BB43CDFB95&nomsis=Apolo&codund=11&codcurceu=110400160&codedicurceu=25001&numseqofeedi=1',
+      skills: 'Machine Learning • Python • Scikit-Learn • Data Science.'
+    },
+    {
+      title: 'Introdução à Ciência da Computação com Python',
+      org: 'USP - Universidade de São Paulo',
+      icon: '/assets/usp.svg',
+      link: 'https://www.coursera.org/account/accomplishments/records/YRIG51A5R83U',
+      skills: 'Python • Algoritmos • Lógica de Programação • Conceitos de Ciência da Computação.'
+    },
+    {
+      title: 'Caminhos para a liderança na era da IA',
+      org: 'Conselho Nacional de Justiça (CNJ)',
+      icon: '/assets/cnj.png',
+      link: '#',
+      skills: 'Liderança • Inteligência Artificial • Inovação • Setor Público • Gestão de Pessoas.'
+    },
+    {
+      title: 'Prompting for Generative AI',
+      org: 'Adobe',
+      icon: '/assets/adobe.png',
+      link: 'https://www.coursera.org/account/accomplishments/verify/BPHYXKTU6XYJ',
+      skills: 'Generative AI • Prompt Engineering • Adobe Firefly • Criatividade Digital.'
+    },
+    {
       title: 'Scrum Foundation (SFPC)',
       org: 'Certiprof',
       icon: '/assets/scrum.png',
@@ -93,15 +121,6 @@ document.addEventListener('DOMContentLoaded', () => {
       icon: '/assets/udemy.png',
       link: 'https://ude.my/UC-05fe9960-73cf-4bd6-ac6e-51add286c2ea',
       skills: 'Análise de dados estatísticos • Entrada de dados • BI • Dashboards • Modelagem de Dados • ETL.',
-      hidden: true
-    },
-    {
-      title: 'Introdução à Ciência da Computação com Python',
-      org: 'USP - Universidade de São Paulo',
-      icon: '/assets/usp.svg',
-      iconClass: 'bg-white p-1 rounded',
-      link: 'https://www.coursera.org/account/accomplishments/records/YRIG51A5R83U',
-      skills: 'Python • Algoritmos • Lógica de Programação • Conceitos de Ciência da Computação.',
       hidden: true
     }
   ];
